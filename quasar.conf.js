@@ -62,6 +62,9 @@ module.exports = function (ctx) {
     supportIE: false,
 
     build: {
+      env: {
+        API: process.env.NODE_ENV === 'development' ? 'http://3.16.255.5/graphql' : 'http://3.16.255.5/graphql'
+      },
       scopeHoisting: true,
       // vueRouterMode: 'history',
       // vueCompiler: true,
