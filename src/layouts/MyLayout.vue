@@ -1,12 +1,8 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-		<base-header
-			@click="leftDrawerOpen = !leftDrawerOpen"
-		/>
+    <base-header @click="leftDrawerOpen = !leftDrawerOpen" />
 
-		<base-drawer
-			v-model="leftDrawerOpen"
-		/>
+    <base-drawer v-model="leftDrawerOpen" />
 
     <q-page-container>
       <router-view />
@@ -15,24 +11,22 @@
 </template>
 
 <script>
-import BaseHeader from '../components/LayoutComponents/BaseHeader';
-import BaseDrawer from '../components/LayoutComponents/BaseDrawer';
+import BaseHeader from "../components/LayoutComponents/BaseHeader";
+import BaseDrawer from "../components/LayoutComponents/BaseDrawer";
 
 export default {
-  name: 'MyLayout',
+  name: "MyLayout",
   components: {
     BaseHeader,
-    BaseDrawer,
+    BaseDrawer
   },
   data() {
     return {
-      leftDrawerOpen: this.$q.platform.is.desktop,
+      leftDrawerOpen: this.$q.platform.is.desktop
     };
   },
-  methods: {
-  },
+  methods: {}
 };
 </script>
 
-<style>
-</style>
+<style></style>

@@ -1,6 +1,6 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
-import modules from './modules';
+import Vue from "vue";
+import Vuex from "vuex";
+import modules from "./modules";
 
 // import example from './module-example'
 
@@ -11,10 +11,10 @@ Vue.use(Vuex);
  * directly export the Store instantiation
  */
 
-export default function (/* { ssrContext } */) {
+export default function(/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules,
-    strict: process.env.DEV,
+    strict: process.env.DEV
   });
 
   return Store;
