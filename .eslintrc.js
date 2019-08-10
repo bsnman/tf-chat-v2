@@ -15,12 +15,13 @@ module.exports = {
   extends: [
     'plugin:vue/essential',
     'airbnb-base',
-    "plugin:prettier/recommended"
+    'plugin:prettier/recommended',
   ],
 
   // required to lint *.vue files
   plugins: [
-    'vue'
+    'vue',
+    'prettier'
   ],
 
   globals: {
@@ -44,11 +45,12 @@ module.exports = {
     'import/no-extraneous-dependencies': 'off',
     'import/prefer-default-export': 'off',
     'prefer-promise-reject-errors': 'off',
-    
+
     'no-tabs': 'off',
     'no-unused-vars': 'off',
     'func-names': 'off',
     'no-restricted-syntax': 'off',
+    "prettier/prettier": 'error',
 
     // allow console.log during development only
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',

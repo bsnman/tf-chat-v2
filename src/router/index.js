@@ -24,6 +24,8 @@ export default function(/* { store, ssrContext } */) {
 
   Router.beforeEach((to, from, next) => {
     console.log(to, from, next);
+
+    next();
   });
 
   return Router;
