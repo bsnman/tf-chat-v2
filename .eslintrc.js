@@ -47,6 +47,8 @@ module.exports = {
     
     'no-tabs': 'off',
     'no-unused-vars': 'off',
+    'func-names': 'off',
+    'no-restricted-syntax': 'off',
 
     // allow console.log during development only
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
