@@ -1,14 +1,14 @@
 // Configuration for your app
 // https://quasar.dev/quasar-cli/quasar-conf-js
-const envparser = require('./src/config/envparser.js');
+const envparser = require("./config/envparser.js");
 
 module.exports = function(ctx) {
   return {
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
-    boot: ['i18n', 'apollo'],
+    boot: ["i18n", "apollo"],
 
-    css: ['app.styl'],
+    css: ["app.styl"],
 
     extras: [
       // 'ionicons-v4',
@@ -18,8 +18,8 @@ module.exports = function(ctx) {
       // 'themify',
       // 'roboto-font-latin-ext', // this or either 'roboto-font', NEVER both!
 
-      'roboto-font', // optional, you are not bound to it
-      'material-icons', // optional, you are not bound to it
+      "roboto-font", // optional, you are not bound to it
+      "material-icons" // optional, you are not bound to it
     ],
 
     framework: {
@@ -29,26 +29,26 @@ module.exports = function(ctx) {
       // all: true, // --- includes everything; for dev only!
 
       components: [
-        'QLayout',
-        'QHeader',
-        'QDrawer',
-        'QPageContainer',
-        'QPage',
-        'QToolbar',
-        'QToolbarTitle',
-        'QBtn',
-        'QIcon',
-        'QList',
-        'QItem',
-        'QItemSection',
-        'QItemLabel',
-        'QSeparator',
+        "QLayout",
+        "QHeader",
+        "QDrawer",
+        "QPageContainer",
+        "QPage",
+        "QToolbar",
+        "QToolbarTitle",
+        "QBtn",
+        "QIcon",
+        "QList",
+        "QItem",
+        "QItemSection",
+        "QItemLabel",
+        "QSeparator"
       ],
 
-      directives: ['Ripple'],
+      directives: ["Ripple"],
 
       // Quasar plugins
-      plugins: ['Notify'],
+      plugins: ["Notify"]
     },
 
     supportIE: false,
@@ -71,20 +71,20 @@ module.exports = function(ctx) {
         //     formatter: require('eslint').CLIEngine.getFormatter('stylish')
         //   }
         // })
-      },
+      }
     },
 
     devServer: {
       // https: true,
       // port: 8080,
-      open: true, // opens browser window automatically
+      open: true // opens browser window automatically
     },
 
     // animations: 'all', // --- includes all animations
     animations: [],
 
     ssr: {
-      pwa: false,
+      pwa: false
     },
 
     pwa: {
@@ -94,38 +94,38 @@ module.exports = function(ctx) {
         // name: 'Thirdfloor Chat',
         // short_name: 'Thirdfloor Chat',
         // description: 'A quasar thirdfloor chat',
-        display: 'standalone',
-        orientation: 'portrait',
-        background_color: '#ffffff',
-        theme_color: '#027be3',
+        display: "standalone",
+        orientation: "portrait",
+        background_color: "#ffffff",
+        theme_color: "#027be3",
         icons: [
           {
-            src: 'statics/icons/icon-128x128.png',
-            sizes: '128x128',
-            type: 'image/png',
+            src: "statics/icons/icon-128x128.png",
+            sizes: "128x128",
+            type: "image/png"
           },
           {
-            src: 'statics/icons/icon-192x192.png',
-            sizes: '192x192',
-            type: 'image/png',
+            src: "statics/icons/icon-192x192.png",
+            sizes: "192x192",
+            type: "image/png"
           },
           {
-            src: 'statics/icons/icon-256x256.png',
-            sizes: '256x256',
-            type: 'image/png',
+            src: "statics/icons/icon-256x256.png",
+            sizes: "256x256",
+            type: "image/png"
           },
           {
-            src: 'statics/icons/icon-384x384.png',
-            sizes: '384x384',
-            type: 'image/png',
+            src: "statics/icons/icon-384x384.png",
+            sizes: "384x384",
+            type: "image/png"
           },
           {
-            src: 'statics/icons/icon-512x512.png',
-            sizes: '512x512',
-            type: 'image/png',
-          },
-        ],
-      },
+            src: "statics/icons/icon-512x512.png",
+            sizes: "512x512",
+            type: "image/png"
+          }
+        ]
+      }
     },
 
     cordova: {
@@ -155,7 +155,7 @@ module.exports = function(ctx) {
       builder: {
         // https://www.electron.build/configuration/configuration
         // appId: 'tf-chat'
-      },
-    },
+      }
+    }
   };
 };
