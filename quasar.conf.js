@@ -1,5 +1,6 @@
 // Configuration for your app
 // https://quasar.dev/quasar-cli/quasar-conf-js
+const envparser = require('./src/config/envparser.js')
 
 module.exports = function (ctx) {
   return {
@@ -7,7 +8,7 @@ module.exports = function (ctx) {
     // --> boot files are part of "main.js"
     boot: [
       'i18n',
-      'axios'
+      'apollo'
     ],
 
     css: [
@@ -62,9 +63,7 @@ module.exports = function (ctx) {
     supportIE: false,
 
     build: {
-      env: {
-        API: process.env.NODE_ENV === 'development' ? 'http://3.16.255.5/graphql' : 'http://3.16.255.5/graphql'
-      },
+      env: envparser(),
       scopeHoisting: true,
       // vueRouterMode: 'history',
       // vueCompiler: true,

@@ -1,6 +1,7 @@
 
 
 export default {
+  namespaced: true,
   state: {
     currentUser: {},
   },
@@ -13,7 +14,7 @@ export default {
     },
   },
   actions: {
-    getCurrentUser(context) {
+    getCurrentUser(context, payload) {
 
     },
   },
