@@ -1,17 +1,17 @@
 
 export default {
-	state: {
-		
-	},
-	getters: {
+  state: {
 
-	},
-	mutations: {
+  },
+  getters: {
 
-	},
-	actions: {
-		authenticate(context, { email, password }) {
-			
-		}
-	}
-}
+  },
+  mutations: {
+
+  },
+  actions: {
+    authenticate(context, { email, password }) {
+
+    },
+  },
+};
