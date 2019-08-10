@@ -5,26 +5,25 @@
 				flat
 				dense
 				round
-				@click="leftDrawerOpen = !leftDrawerOpen"
+				@click="$emit('click')"
 				aria-label="Menu"
 			>
 				<q-icon name="menu" />
 			</q-btn>
 
 			<q-toolbar-title>
-				Quasar App
+				Thirdfloor Chat
 			</q-toolbar-title>
 
-			<div>Quasar v{{ $q.version }}</div>
+			<div>v1.0</div>
 		</q-toolbar>
 	</q-header>
 </template>
 
 <script>
 export default {
-	name: 'base-header',
-	methods: {
-	}
-}
+  name: 'base-header',
+  methods: {
+  },
+};
 </script>
-
