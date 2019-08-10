@@ -14,10 +14,6 @@ export default {
   },
   actions: {
     authenticate(context, { email, password }) {
-      console.log(email, password);
-      console.log(apolloClient);
-      console.log(apolloClient.mutate);
-
       apolloClient.mutate({
         mutation: login,
         variables: {
