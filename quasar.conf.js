@@ -7,7 +7,7 @@ module.exports = function(ctx) {
   return {
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
-    boot: ["i18n", "apollo", "utils", "vueCookie"],
+    boot: ["i18n", "apollo", "utils", "vueCookie", "timeComponent"],
 
     css: ["app.styl"],
 

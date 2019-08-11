@@ -1,13 +1,24 @@
 <template>
-  <q-page class="flex flex-center"> </q-page>
+  <q-page class="chat-list">
+    <div class="flex column no-wrap" style="height: calc(100vh - 50px);">
+      <MessageList :messages="messages" />
+      <MessageInput @onSendMessage="onSendMessage" />
+    </div>
+  </q-page>
 </template>
 
 <script>
 import VueCookie from "vue-cookie";
 import { mapActions, mapGetters } from "vuex";
+import MessageList from "@/components/Messages/MessageList";
+import MessageInput from "@/components/Messages/MessageInput";
 
 export default {
   name: "chat",
+  components: {
+    MessageList,
+    MessageInput
+  },
   data() {
     return {};
   },
@@ -20,7 +31,7 @@ export default {
       return this.$route.params.channelId;
     },
     messages() {
-      return this.getChannelMessages;
+      return this.getChannelMessages || [];
     },
     cursor() {
       return this.getChannelMessagesCursor;
@@ -47,7 +58,10 @@ export default {
           cursor: this.cursor
         });
       }
-    }
+    },
+    onSendMessage({ body }) {}
   }
 };
 </script>
+
+<style lang="stylus" scoped></style>

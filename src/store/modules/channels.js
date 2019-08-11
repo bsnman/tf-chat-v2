@@ -30,12 +30,16 @@ export default {
 
       return result.data.myJoinedChannels.nodes;
     },
-    async loadChannelMessages(context, { channelId, cursor }) {
+    async loadChannelMessages(
+      context,
+      { channelId, cursor, orderBy = "createdAt_DESC" }
+    ) {
       const result = await apolloClient.query({
         query: queries.channelMessages,
         variables: {
           id: channelId,
-          cursor
+          cursor,
+          orderBy
         }
       });
 

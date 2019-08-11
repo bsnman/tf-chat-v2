@@ -24,7 +24,6 @@ export default function({ store }) {
   });
 
   Router.beforeEach((to, from, next) => {
-    console.log("hello", to);
     if (to.meta.auth && !store.getters["auth/isAuthenticated"]) {
       store.commit("auth/clearAuthentication");
       next("/login");
