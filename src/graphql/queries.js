@@ -29,3 +29,23 @@ export const myJoinedChannels = gql`
     }
   }
 `;
+
+export const channelMessages = gql`
+  query channelMessages($id: ID!, $cursor: ID) {
+    channelMessages(id: $id, cursor: $cursor) {
+      pageInfo {
+        cursor
+      }
+      nodes {
+        id
+        user {
+          id
+          displayName
+          userType
+        }
+        body
+        createdAt
+      }
+    }
+  }
+`;

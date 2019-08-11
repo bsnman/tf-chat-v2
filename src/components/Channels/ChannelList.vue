@@ -19,6 +19,7 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import _ from "lodash";
 
 export default {
   name: "channel-list",
@@ -29,7 +30,16 @@ export default {
     }
   },
   created() {
-    this.loadMyJoinedChannels();
+    this.loadMyJoinedChannels().then(res => {
+      console.log(res);
+      if (res[0] && res[0].id) {
+        const query = _.clone(this.$route.query);
+
+        query.channelId = res[0].id;
+
+        this.$router.push({ query });
+      }
+    });
   },
   methods: {
     ...mapActions("channels", ["loadMyJoinedChannels"])

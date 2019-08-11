@@ -25,6 +25,7 @@
     "axios": "^0.18.1",
     "graphql": "^14.4.2",
     "graphql-tag": "^2.10.1",
+    "lodash": "^4.17.15",
     "node-fetch": "^2.6.0",
     "quasar": "^1.0.0",
     "subscriptions-transport-ws": "^0.9.16",

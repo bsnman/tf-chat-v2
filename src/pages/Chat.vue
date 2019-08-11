@@ -1,9 +1,14 @@
 <template>
-  <q-page class="flex flex-center"> Chat {{ token }} </q-page>
+  <q-page class="flex flex-center">
+    <p v-for="message in messages" :key="message.id">
+      {{ message.body }}
+    </p>
+  </q-page>
 </template>
 
 <script>
 import VueCookie from "vue-cookie";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "Chat",
@@ -11,15 +16,41 @@ export default {
     return {};
   },
   computed: {
-    cons() {
-      return this.$utils.cons;
+    ...mapGetters("channels", [
+      "getChannelMessagesCursor",
+      "getChannelMessages"
+    ]),
+    channelId() {
+      return this.$route.query.channelId;
     },
-    token() {
-      return this.$cookie.get(this.$utils.cons.COOKIE.USER_TOKEN);
+    messages() {
+      return this.getChannelMessages;
+    },
+    cursor() {
+      return this.getChannelMessagesCursor;
+    }
+  },
+  watch: {
+    channelId(n, o) {
+      console.log(n);
+      if (n) {
+        this.loadChannelMessages({ channelId: this.channelId });
+      }
     }
   },
   mounted() {
-    console.log(this.$apolloClient);
+    this.loadChannelMessages({ channelId: this.channelId });
+  },
+  methods: {
+    ...mapActions("channels", ["loadChannelMessages"]),
+    loadNextPage() {
+      if (this.channelId) {
+        this.loadChannelMessages({
+          channelId: this.channelId,
+          cursor: this.cursor
+        });
+      }
+    }
   }
 };
 </script>
