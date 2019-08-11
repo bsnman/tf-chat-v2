@@ -15,3 +15,20 @@ export const login = gql`
     }
   }
 `;
+
+export const sendMessage = gql`
+  mutation sendMessage($channelId: ID!, $body: String!) {
+    sendMessage(channelId: $channelId, body: $body) {
+      id
+      channel {
+        id
+      }
+      user {
+        id
+        displayName
+      }
+      body
+      createdAt
+    }
+  }
+`;

@@ -1,5 +1,5 @@
 <template>
-  <div class="message-item">
+  <div class="message-item" :class="[message.isPlaceholder ? 'sending' : '']">
     <q-separator />
     <div class="text-subtitle2">
       {{ message.user.displayName }}
@@ -35,6 +35,9 @@ export default {
   &:last-child
     padding-top: 20px
   margin-bottom: 10px
+
+  &.sending
+    opacity: 0.7
 
 .message-bubble
   margin-top: 10px

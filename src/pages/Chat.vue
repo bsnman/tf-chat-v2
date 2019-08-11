@@ -51,6 +51,7 @@ export default {
   },
   methods: {
     ...mapActions("channels", ["loadChannelMessages"]),
+    ...mapActions("messages", ["sendMessage"]),
     loadNextPage() {
       if (this.channelId) {
         this.loadChannelMessages({
@@ -59,7 +60,16 @@ export default {
         });
       }
     },
-    onSendMessage({ body }) {}
+    onSendMessage({ body }) {
+      console.log(body);
+
+      const payload = {
+        channelId: this.channelId,
+        body
+      };
+
+      this.sendMessage(payload);
+    }
   }
 };
 </script>

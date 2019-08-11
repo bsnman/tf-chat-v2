@@ -1,4 +1,5 @@
 import { apolloClient } from "boot/apollo";
+import _ from "lodash";
 import * as queries from "../../graphql/queries";
 
 export default {
@@ -18,6 +19,16 @@ export default {
     },
     setChannelMessages(state, v) {
       state.channelMessages = v;
+    },
+    addPlaceholderMessage(state, v) {
+      state.channelMessages.nodes.unshift(v);
+    },
+    replacePlaceholderMessage(state, { id, message }) {
+      const index = _.findIndex(state.channelMessages.nodes, e => e.id === id);
+
+      if (index >= 0) {
+        state.channelMessages.nodes.splice(index, 1, message);
+      }
     }
   },
   actions: {
