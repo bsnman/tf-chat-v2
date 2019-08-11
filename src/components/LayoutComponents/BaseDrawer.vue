@@ -1,7 +1,20 @@
 <template>
   <q-drawer v-model="_leftDrawerOpen" bordered content-class="bg-grey-2">
     <q-list>
+      <q-item-label header>You</q-item-label>
+      <q-item clickable v-ripple tag="a">
+        <q-item-section avatar>
+          <q-icon name="person" />
+        </q-item-section>
+        <q-item-section>
+          <q-item-label>{{ currentUser.displayName }}</q-item-label>
+          <q-item-label caption>{{ currentUser.userType }}</q-item-label>
+        </q-item-section>
+      </q-item>
+
+      <q-separator />
       <q-item-label header>Users</q-item-label>
+
       <q-item clickable v-ripple tag="a">
         <q-item-section avatar>
           <q-icon name="person" />
@@ -40,7 +53,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "base-drawer",
@@ -51,6 +64,9 @@ export default {
     }
   },
   computed: {
+    ...mapGetters("currentUser", [
+      "getCurrentUser"
+    ]),
     _leftDrawerOpen: {
       get() {
         return this.value;
@@ -58,6 +74,9 @@ export default {
       set(v) {
         this.$emit("input", v);
       }
+    },
+    currentUser() {
+      return this.getCurrentUser
     }
   },
   methods: {

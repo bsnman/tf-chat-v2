@@ -4,7 +4,7 @@
       <q-card-section>
         <q-img src="../assets/logo.png" width="150" height="150" />
         <p class="text-h6">
-          Login {{isLogginIn}}
+          Login
         </p>
         <q-form ref="login-form" class="login-form" @submit="onLogin">
           <q-input
@@ -75,7 +75,7 @@ export default {
 
       this.isLogginIn = true
 
-      this.authenticate(this.loginForm) 
+      this.authenticate(this.loginForm)
         .catch(err => {
           this.$q.notify('Invalid Credentials')
         })

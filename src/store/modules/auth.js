@@ -1,6 +1,5 @@
 import { apolloClient } from "boot/apollo";
 import vueCookie from "vue-cookie";
-import Vue from "vue";
 import { login } from "../../graphql/mutations";
 import Cons from "../../utils/constants";
 
@@ -36,6 +35,9 @@ export default {
       });
 
       context.commit("setAuthentication", result.data.login.token);
+      context.commit("currentUser/setCurrentUser", result.data.login.user, {
+        root: 1
+      });
 
       this.$router.push("/");
 
@@ -44,6 +46,9 @@ export default {
     authenticateGuest(context) {},
     logout(context) {
       context.commit("clearAuthentication");
+
+      apolloClient.resetStore();
+
       this.$router.push("/login");
     }
   }

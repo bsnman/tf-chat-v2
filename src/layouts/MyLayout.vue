@@ -13,6 +13,7 @@
 <script>
 import BaseHeader from "../components/LayoutComponents/BaseHeader";
 import BaseDrawer from "../components/LayoutComponents/BaseDrawer";
+import { mapActions } from 'vuex'
 
 export default {
   name: "MyLayout",
@@ -25,7 +26,14 @@ export default {
       leftDrawerOpen: this.$q.platform.is.desktop
     };
   },
-  methods: {}
+  created() {
+    this.getCurrentUser()
+  },
+  methods: {
+    ...mapActions("currentUser", [
+      "getCurrentUser"
+    ])
+  }
 };
 </script>
 

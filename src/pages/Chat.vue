@@ -17,6 +17,9 @@ export default {
     token() {
       return this.$cookie.get(this.$utils.cons.COOKIE.USER_TOKEN);
     }
+  },
+  mounted() {
+    console.log(this.$apolloProvider.defaultClient)
   }
 };
 </script>

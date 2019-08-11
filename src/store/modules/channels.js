@@ -1,6 +1,3 @@
-import vueCookie from "vue-cookie";
-
-
 export default {
   namespaced: true,
   state: {
@@ -15,8 +12,6 @@ export default {
     }
   },
   actions: {
-    loadCurrentUser(context, payload) {
-      
-    }
+    getCurrentUser(context, payload) {}
   }
 };
