@@ -1,5 +1,6 @@
 // Configuration for your app
 // https://quasar.dev/quasar-cli/quasar-conf-js
+const path = require("path");
 const envparser = require("./config/envparser.js");
 
 module.exports = function(ctx) {
@@ -13,7 +14,7 @@ module.exports = function(ctx) {
     extras: [
       // 'ionicons-v4',
       // 'mdi-v3',
-      // 'fontawesome-v5',
+      "fontawesome-v5",
       // 'eva-icons',
       // 'themify',
       // 'roboto-font-latin-ext', // this or either 'roboto-font', NEVER both!
@@ -76,6 +77,10 @@ module.exports = function(ctx) {
       // analyze: true,
       // extractCSS: false,
       extendWebpack(cfg) {
+        cfg.resolve.alias = {
+          ...cfg.resolve.alias,
+          "@": path.resolve(__dirname, "./src")
+        };
         // cfg.module.rules.push({
         //   enforce: 'pre',
         //   test: /\.(js|vue)$/,

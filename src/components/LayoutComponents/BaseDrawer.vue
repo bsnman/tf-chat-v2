@@ -24,20 +24,12 @@
           <q-item-label caption>member</q-item-label>
         </q-item-section>
       </q-item>
-
-      <q-separator />
-      <q-item-label header>Channels</q-item-label>
-
-      <q-item clickable v-ripple tag="a">
-        <q-item-section avatar>
-          <q-icon name="chat" />
-        </q-item-section>
-        <q-item-section>
-          <q-item-label>Room 1</q-item-label>
-          <q-item-label caption>2 users</q-item-label>
-        </q-item-section>
-      </q-item>
     </q-list>
+
+    <q-separator />
+    <q-item-label header>Channels</q-item-label>
+
+    <channel-list />
 
     <q-list class="logout-button">
       <q-item @click="onLogout" clickable v-ripple tag="a">
@@ -54,9 +46,13 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import ChannelList from "@/components/Channels/ChannelList";
 
 export default {
   name: "base-drawer",
+  components: {
+    ChannelList
+  },
   props: {
     value: {
       type: Boolean,

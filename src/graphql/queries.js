@@ -12,3 +12,20 @@ export const me = gql`
     }
   }
 `;
+
+export const myJoinedChannels = gql`
+  query myJoinedChannels {
+    myJoinedChannels {
+      pageInfo {
+        cursor
+      }
+      nodes {
+        id
+        title
+        createdBy {
+          id
+        }
+      }
+    }
+  }
+`;

@@ -56,18 +56,11 @@ const link = ApolloLink.from([
   httpWsLink
 ]);
 
-const token = VueCookie.get(cons.COOKIE.USER_TOKEN);
-
-console.log(token);
-
 // Create the apollo client
 export const apolloClient = new ApolloClient({
   link,
   cache: new InMemoryCache(),
-  connectToDevTools: true,
-  headers: {
-    authorization: token ? `Bearer ${token}` : ""
-  }
+  connectToDevTools: true
 });
 
 export default ({ app, Vue }) => {

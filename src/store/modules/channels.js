@@ -1,17 +1,28 @@
+import { apolloClient } from "boot/apollo";
+import * as queries from "../../graphql/queries";
+
 export default {
   namespaced: true,
   state: {
-    currentUser: {}
+    myJoinedChannels: {}
   },
   getters: {
-    getCurrentUser: state => state.currentUser
+    getMyJoinedChannels: state => state.myJoinedChannels.nodes
   },
   mutations: {
-    setCurrentUser(state, v) {
-      state.currentUser = v;
+    setMyJoinedChannels(state, v) {
+      state.myJoinedChannels = v;
     }
   },
   actions: {
-    getCurrentUser(context, payload) {}
+    async loadMyJoinedChannels(context) {
+      const result = await apolloClient.query({
+        query: queries.myJoinedChannels
+      });
+
+      context.commit("setMyJoinedChannels", result.data.myJoinedChannels);
+
+      return result.data.myJoinedChannels.nodes;
+    }
   }
 };
