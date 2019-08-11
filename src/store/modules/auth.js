@@ -34,9 +34,10 @@ export default {
           password
         }
       });
-      this.$router.push("/");
 
       context.commit("setAuthentication", result.data.login.token);
+
+      this.$router.push("/");
 
       return result.data.login;
     },

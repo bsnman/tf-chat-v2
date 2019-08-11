@@ -20,6 +20,7 @@ const routes = [
     beforeEnter: (to, from, next) => {
       if (Store().getters["auth/isAuthenticated"]) {
         next("/");
+        return;
       }
       next();
     },

@@ -4,7 +4,7 @@
       <q-card-section>
         <q-img src="../assets/logo.png" width="150" height="150" />
         <p class="text-h6">
-          Login
+          Login {{isLogginIn}}
         </p>
         <q-form ref="login-form" class="login-form" @submit="onLogin">
           <q-input
@@ -33,12 +33,13 @@
             </p>
           </div>
           <div style="display: flex; justify-content: flex-end">
-            <q-btn @click="loginAsGuest" label="Guest" />
+            <q-btn @click="loginAsGuest" label="Guest" :disable="isLogginIn" />
             <q-btn
               label="Login"
               type="submit"
               color="primary"
               style="margin-left: 10px;"
+              :loading="isLogginIn"
             />
           </div>
         </q-form>
@@ -57,7 +58,8 @@ export default {
       loginForm: {
         email: "",
         password: ""
-      }
+      },
+      isLogginIn: false
     };
   },
   computed: {
@@ -71,7 +73,15 @@ export default {
     onLogin() {
       console.log("login");
 
-      this.authenticate(this.loginForm);
+      this.isLogginIn = true
+
+      this.authenticate(this.loginForm) 
+        .catch(err => {
+          this.$q.notify('Invalid Credentials')
+        })
+        .finally(() => {
+          this.isLogginIn = false
+        })
     },
     loginAsGuest() {
       console.log("login as guest");
