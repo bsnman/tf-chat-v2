@@ -47,32 +47,26 @@ export default {
     currentUser() {
       return this.getCurrentUser;
     },
-    channelId: {
-      get() {
-        return this.$route.query.channelId;
-      },
-      set(v) {
-        const query = _.clone(this.$route.query);
-
-        query.channelId = v;
-
-        this.$router.push({ query });
-      }
+    channelId() {
+      return this.$route.params.channelId;
     }
   },
   created() {
     this.loadMyJoinedChannels().then(res => {
       if (res[0] && res[0].id && !this.channelId) {
-        this.channelId = res[0].id;
+        this.toChannel(res[0]);
       }
     });
   },
   methods: {
     ...mapActions("channels", ["loadMyJoinedChannels"]),
     onChannelClick(channel) {
-      this.channelId = channel.id;
+      this.toChannel(channel);
     },
-    onSettingsClick(channel) {}
+    onSettingsClick(channel) {},
+    toChannel(channel) {
+      this.$router.push({ path: `/chat/${channel.id}` });
+    }
   }
 };
 </script>

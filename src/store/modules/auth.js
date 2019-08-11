@@ -39,7 +39,7 @@ export default {
         root: 1
       });
 
-      this.$router.push("/");
+      this.$router.push("/chat");
 
       return result.data.login;
     },

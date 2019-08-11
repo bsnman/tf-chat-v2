@@ -17,7 +17,7 @@ export default {
       "getChannelMessages"
     ]),
     channelId() {
-      return this.$route.query.channelId;
+      return this.$route.params.channelId;
     },
     messages() {
       return this.getChannelMessages;

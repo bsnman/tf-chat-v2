@@ -2,11 +2,12 @@ import Store from "../store";
 
 const routes = [
   {
-    path: "/",
+    path: "/chat",
     component: () => import("layouts/MyLayout.vue"),
     children: [
       {
-        path: "",
+        path: "/chat/:channelId",
+        name: "Channel",
         component: () => import("pages/Chat.vue"),
         meta: {
           auth: 1
@@ -16,21 +17,30 @@ const routes = [
   },
   {
     path: "/login",
+    name: "Login",
     component: () => import("layouts/LoginLayout.vue"),
     beforeEnter: (to, from, next) => {
       if (Store().getters["auth/isAuthenticated"]) {
-        next("/");
+        next("/chat");
         return;
       }
       next();
     },
+    meta: {
+      auth: 0
+    },
     children: [
       {
-        path: "",
-        component: () => import("pages/Login/Login.vue")
+        path: "/login",
+        name: "Login",
+        component: () => import("pages/Login/Login.vue"),
+        meta: {
+          auth: 0
+        }
       },
       {
         path: "/register",
+        name: "Register",
         component: () => import("pages/Login/Register.vue")
       }
     ]

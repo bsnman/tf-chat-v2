@@ -73,7 +73,6 @@ export default {
   methods: {
     ...mapActions("auth", ["logout"]),
     onLogout() {
-      console.log("hello");
       this.logout();
     }
   }
