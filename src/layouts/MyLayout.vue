@@ -16,7 +16,7 @@ import BaseHeader from "../components/LayoutComponents/BaseHeader";
 import BaseDrawer from "../components/LayoutComponents/BaseDrawer";
 
 export default {
-  name: "MyLayout",
+  name: "my-layout",
   components: {
     BaseHeader,
     BaseDrawer

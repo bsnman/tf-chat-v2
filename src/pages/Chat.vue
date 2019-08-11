@@ -1,9 +1,5 @@
 <template>
-  <q-page class="flex flex-center">
-    <p v-for="message in messages" :key="message.id">
-      {{ message.body }}
-    </p>
-  </q-page>
+  <q-page class="flex flex-center"> </q-page>
 </template>
 
 <script>
@@ -11,7 +7,7 @@ import VueCookie from "vue-cookie";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
-  name: "Chat",
+  name: "chat",
   data() {
     return {};
   },
