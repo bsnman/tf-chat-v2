@@ -27,7 +27,7 @@
     </q-list>
 
     <q-list class="logout-button">
-      <q-item clickable v-ripple tag="a">
+      <q-item @click="onLogout" clickable v-ripple tag="a">
         <q-item-section avatar>
           <q-icon name="logout" />
         </q-item-section>
@@ -40,6 +40,8 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
   name: "base-drawer",
   props: {
@@ -56,6 +58,13 @@ export default {
       set(v) {
         this.$emit("input", v);
       }
+    }
+  },
+  methods: {
+    ...mapActions("auth", ["logout"]),
+    onLogout() {
+      console.log("hello");
+      this.logout();
     }
   }
 };
