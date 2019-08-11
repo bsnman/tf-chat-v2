@@ -1,5 +1,6 @@
 import { apolloClient } from "boot/apollo";
 import _ from "lodash";
+import Vue from "vue";
 import * as queries from "../../graphql/queries";
 
 export default {
@@ -28,6 +29,22 @@ export default {
 
       if (index >= 0) {
         state.channelMessages.nodes.splice(index, 1, message);
+      }
+    },
+    setMessageDeleting(state, { id }) {
+      const index = _.findIndex(state.channelMessages.nodes, e => e.id === id);
+
+      console.log("deleting", index);
+
+      if (index >= 0) {
+        Vue.set(state.channelMessages.nodes[index], "isDeleting", true);
+      }
+    },
+    removeMessage(state, { id }) {
+      const index = _.findIndex(state.channelMessages.nodes, e => e.id === id);
+
+      if (index >= 0) {
+        state.channelMessages.nodes.splice(index, 1);
       }
     }
   },

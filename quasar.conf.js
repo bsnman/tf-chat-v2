@@ -51,7 +51,8 @@ module.exports = function(ctx) {
         "QCardActions",
         "QAvatar",
         "QForm",
-        "QInput"
+        "QInput",
+        "QSpinnerOval"
       ],
 
       directives: ["Ripple"],

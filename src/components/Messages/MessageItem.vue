@@ -1,20 +1,36 @@
 <template>
   <div class="message-item" :class="[message.isPlaceholder ? 'sending' : '']">
     <q-separator />
-    <div class="text-subtitle2">
-      {{ message.user.displayName }}
-    </div>
-    <div class="message-bubble">
-      <div class="message-content">
-        {{ message.body }}
+    <div class="message-container flex">
+      <div class="message-details">
+        <div class="text-subtitle2">
+          {{ message.user.displayName }}
+        </div>
+        <div class="message-bubble">
+          <div class="message-content">
+            {{ message.body }}
+          </div>
+        </div>
+        &nbsp;
+        <Time
+          style="font-size: 0.8em; color: #aaa"
+          :date="message.createdAt"
+          :options="{
+            includeTime: true,
+            showTimeIfToday: true
+          }"
+        />
+      </div>
+      <div class="message-actions" :class="[message.isDeleting ? 'show' : '']">
+        <q-btn
+          @click="onDeleteClick"
+          :loading="message.isDeleting"
+          round
+          flat
+          icon="delete"
+        />
       </div>
     </div>
-    &nbsp;
-    <Time
-      style="font-size: 0.8em; color: #aaa"
-      :date="message.createdAt"
-      :options="{ includeTime: true }"
-    />
   </div>
 </template>
 
@@ -25,6 +41,11 @@ export default {
     message: {
       type: Object,
       required: true
+    }
+  },
+  methods: {
+    onDeleteClick() {
+      this.$emit("onDeleteClick", this.message);
     }
   }
 };
@@ -38,6 +59,21 @@ export default {
 
   &.sending
     opacity: 0.7
+
+.message-container
+  &:hover
+    .message-actions
+      visibility: inherit
+
+.message-details
+  flex-grow: 1
+
+.message-actions
+  visibility: hidden
+  padding-top: 5px
+
+  &.show
+    visibility: inherit
 
 .message-bubble
   margin-top: 10px

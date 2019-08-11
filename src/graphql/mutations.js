@@ -32,3 +32,11 @@ export const sendMessage = gql`
     }
   }
 `;
+
+export const deleteMessage = gql`
+  mutation deleteMessage($id: ID!) {
+    deleteMessage(id: $id) {
+      id
+    }
+  }
+`;

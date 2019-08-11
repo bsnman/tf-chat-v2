@@ -18,8 +18,6 @@ export default {
         isPlaceholder: true
       };
 
-      console.log("hello");
-
       context.commit("channels/addPlaceholderMessage", placeholderMessage, {
         root: 1
       });
@@ -46,6 +44,36 @@ export default {
       );
 
       return newMessage;
+    },
+    async deleteMessage(context, { messageId }) {
+      context.commit(
+        "channels/setMessageDeleting",
+        { id: messageId },
+        {
+          root: 1
+        }
+      );
+
+      const result = await apolloClient.mutate({
+        mutation: mutations.deleteMessage,
+        variables: {
+          id: messageId
+        }
+      });
+
+      const { deleteMessage } = result.data;
+
+      context.commit(
+        "channels/removeMessage",
+        {
+          id: messageId
+        },
+        {
+          root: 1
+        }
+      );
+
+      return deleteMessage;
     }
   }
 };

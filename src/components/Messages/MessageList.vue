@@ -1,7 +1,11 @@
 <template>
   <div class="message-list reverse column no-wrap">
     <template v-for="message in messages">
-      <MessageItem :message="message" :key="message.id" />
+      <MessageItem
+        :message="message"
+        :key="message.id"
+        @onDeleteClick="onDeleteClick"
+      />
     </template>
   </div>
 </template>
@@ -18,6 +22,11 @@ export default {
     messages: {
       type: Array,
       required: true
+    }
+  },
+  methods: {
+    onDeleteClick(message) {
+      this.$emit("onDeleteMessage", message);
     }
   }
 };

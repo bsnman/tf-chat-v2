@@ -1,7 +1,7 @@
 <template>
   <q-page class="chat-list">
     <div class="flex column no-wrap" style="height: calc(100vh - 50px);">
-      <MessageList :messages="messages" />
+      <MessageList :messages="messages" @onDeleteMessage="onDeleteMessage" />
       <MessageInput @onSendMessage="onSendMessage" />
     </div>
   </q-page>
@@ -51,7 +51,7 @@ export default {
   },
   methods: {
     ...mapActions("channels", ["loadChannelMessages"]),
-    ...mapActions("messages", ["sendMessage"]),
+    ...mapActions("messages", ["sendMessage", "deleteMessage"]),
     loadNextPage() {
       if (this.channelId) {
         this.loadChannelMessages({
@@ -61,14 +61,15 @@ export default {
       }
     },
     onSendMessage({ body }) {
-      console.log(body);
-
       const payload = {
         channelId: this.channelId,
         body
       };
 
       this.sendMessage(payload);
+    },
+    onDeleteMessage(message) {
+      this.deleteMessage({ messageId: message.id });
     }
   }
 };
