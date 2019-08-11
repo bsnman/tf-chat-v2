@@ -27,10 +27,10 @@ export default {
     };
   },
   created() {
-    this.getCurrentUser();
+    this.loadCurrentUser();
   },
   methods: {
-    ...mapActions("currentUser", ["getCurrentUser"])
+    ...mapActions("currentUser", ["loadCurrentUser"])
   }
 };
 </script>

@@ -1,4 +1,6 @@
+import { apolloClient } from "boot/apollo";
 import vueCookie from "vue-cookie";
+import * as queries from "../../graphql/queries";
 
 export default {
   namespaced: true,
@@ -14,6 +16,14 @@ export default {
     }
   },
   actions: {
-    loadCurrentUser(context, payload) {}
+    async loadCurrentUser(context, payload) {
+      const result = await apolloClient.query({
+        query: queries.me
+      });
+
+      context.commit("setCurrentUser", result.data.me);
+
+      return result.data.me;
+    }
   }
 };
