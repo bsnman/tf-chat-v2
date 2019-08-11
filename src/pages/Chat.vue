@@ -32,7 +32,6 @@ export default {
   },
   watch: {
     channelId(n, o) {
-      console.log(n);
       if (n) {
         this.loadChannelMessages({ channelId: this.channelId });
       }
