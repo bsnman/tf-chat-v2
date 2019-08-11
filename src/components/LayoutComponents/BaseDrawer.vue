@@ -26,9 +26,6 @@
       </q-item>
     </q-list>
 
-    <q-separator />
-    <q-item-label header>Channels</q-item-label>
-
     <channel-list />
 
     <q-list class="logout-button">

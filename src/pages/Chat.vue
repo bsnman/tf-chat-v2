@@ -38,7 +38,9 @@ export default {
     }
   },
   mounted() {
-    this.loadChannelMessages({ channelId: this.channelId });
+    if (this.channelId) {
+      this.loadChannelMessages({ channelId: this.channelId });
+    }
   },
   methods: {
     ...mapActions("channels", ["loadChannelMessages"]),

@@ -1,5 +1,8 @@
 <template>
   <q-list>
+    <q-separator />
+    <q-item-label header>Joined Channels</q-item-label>
+
     <q-item
       v-for="channel in myJoinedChannels"
       :key="channel.id"
@@ -13,9 +16,17 @@
         <q-icon name="fas fa-hashtag" />
       </q-item-section>
       <q-item-section>
-        <q-item-label>
-          {{ channel.title }}
-        </q-item-label>
+        <div class="row items-center justify-between">
+          <q-item-label>
+            {{ channel.title }}
+          </q-item-label>
+          <q-btn
+            v-if="channel.createdBy.id === currentUser.id"
+            @click.prevent="onSettingsClick(channel)"
+            icon="settings"
+            flat
+          />
+        </div>
       </q-item-section>
     </q-item>
   </q-list>
@@ -29,8 +40,12 @@ export default {
   name: "channel-list",
   computed: {
     ...mapGetters("channels", ["getMyJoinedChannels"]),
+    ...mapGetters("currentUser", ["getCurrentUser"]),
     myJoinedChannels() {
       return this.getMyJoinedChannels;
+    },
+    currentUser() {
+      return this.getCurrentUser;
     },
     channelId: {
       get() {
@@ -56,7 +71,8 @@ export default {
     ...mapActions("channels", ["loadMyJoinedChannels"]),
     onChannelClick(channel) {
       this.channelId = channel.id;
-    }
+    },
+    onSettingsClick(channel) {}
   }
 };
 </script>
