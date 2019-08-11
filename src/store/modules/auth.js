@@ -1,5 +1,6 @@
 import { apolloClient } from "boot/apollo";
 import vueCookie from "vue-cookie";
+import Vue from "vue";
 import { login } from "../../graphql/mutations";
 import Cons from "../../utils/constants";
 
@@ -25,15 +26,24 @@ export default {
     }
   },
   actions: {
-    authenticate(context, { email, password }) {
-      apolloClient.mutate({
+    async authenticate(context, { email, password }) {
+      const result = await apolloClient.mutate({
         mutation: login,
         variables: {
           email,
           password
         }
       });
+      this.$router.push("/");
+
+      context.commit("setAuthentication", result.data.login.token);
+
+      return result.data.login;
     },
-    authenticateGuest(context) {}
+    authenticateGuest(context) {},
+    logout(context) {
+      context.commit("clearAuthentication");
+      this.$router.push("/login");
+    }
   }
 };

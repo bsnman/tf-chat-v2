@@ -1,3 +1,5 @@
+import Store from "../store";
+
 const routes = [
   {
     path: "/",
@@ -15,13 +17,19 @@ const routes = [
   {
     path: "/login",
     component: () => import("layouts/LoginLayout.vue"),
+    beforeEnter: (to, from, next) => {
+      if (Store().getters["auth/isAuthenticated"]) {
+        next("/");
+      }
+      next();
+    },
     children: [
       {
         path: "",
         component: () => import("pages/Login/Login.vue")
       },
       {
-        path: "",
+        path: "/register",
         component: () => import("pages/Login/Register.vue")
       }
     ]

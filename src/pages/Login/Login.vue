@@ -48,6 +48,8 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
   name: "Login",
   data() {
@@ -63,12 +65,13 @@ export default {
       return this.$utils.strings.validateEmail(this.loginForm.email);
     }
   },
-  mounted() {
-    console.log(this.$utils);
-  },
+  mounted() {},
   methods: {
+    ...mapActions("auth", ["authenticate", "authenticateGuest"]),
     onLogin() {
       console.log("login");
+
+      this.authenticate(this.loginForm);
     },
     loginAsGuest() {
       console.log("login as guest");

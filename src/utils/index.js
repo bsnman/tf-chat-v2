@@ -1,7 +1,7 @@
-import constants from "./constants";
+import cons from "./constants";
 import * as strings from "./strings";
 
 export default {
-  constants,
+  cons,
   strings
 };

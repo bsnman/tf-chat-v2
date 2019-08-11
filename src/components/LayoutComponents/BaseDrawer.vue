@@ -25,6 +25,17 @@
         </q-item-section>
       </q-item>
     </q-list>
+
+    <q-list class="logout-button">
+      <q-item clickable v-ripple tag="a">
+        <q-item-section avatar>
+          <q-icon name="logout" />
+        </q-item-section>
+        <q-item-section>
+          <q-item-label>Logout</q-item-label>
+        </q-item-section>
+      </q-item>
+    </q-list>
   </q-drawer>
 </template>
 
@@ -49,3 +60,11 @@ export default {
   }
 };
 </script>
+
+<style lang="stylus" scoped>
+.logout-button
+  position: absolute
+  bottom: 0
+  right: 0
+  left: 0
+</style>
