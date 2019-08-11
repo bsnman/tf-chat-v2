@@ -2,7 +2,29 @@ const routes = [
   {
     path: "/",
     component: () => import("layouts/MyLayout.vue"),
-    children: [{ path: "", component: () => import("pages/Chat.vue") }]
+    children: [
+      {
+        path: "",
+        component: () => import("pages/Chat.vue"),
+        meta: {
+          auth: 1
+        }
+      }
+    ]
+  },
+  {
+    path: "/login",
+    component: () => import("layouts/LoginLayout.vue"),
+    children: [
+      {
+        path: "",
+        component: () => import("pages/Login/Login.vue")
+      },
+      {
+        path: "",
+        component: () => import("pages/Login/Register.vue")
+      }
+    ]
   }
 ];
 

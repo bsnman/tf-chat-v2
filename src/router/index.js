@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import Store from "../store";
 
 import routes from "./routes";
 
@@ -23,7 +24,10 @@ export default function(/* { store, ssrContext } */) {
   });
 
   Router.beforeEach((to, from, next) => {
-    console.log(to, from, next);
+    // if (to.meta.auth && !Store().getters["auth/isAuthenticated"]) {
+    //   Store().commit("auth/clearAuthentication");
+    //   next("/login");
+    // }
 
     next();
   });

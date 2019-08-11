@@ -1,11 +1,11 @@
 <template>
   <q-page class="flex flex-center">
-    Chat
+    Register
   </q-page>
 </template>
 
 <script>
 export default {
-  name: "Chat"
+  name: "Register"
 };
 </script>

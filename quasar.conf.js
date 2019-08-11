@@ -6,7 +6,7 @@ module.exports = function(ctx) {
   return {
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
-    boot: ["i18n", "apollo"],
+    boot: ["i18n", "apollo", "utils", "vueCookie"],
 
     css: ["app.styl"],
 
@@ -32,6 +32,7 @@ module.exports = function(ctx) {
         "QLayout",
         "QHeader",
         "QDrawer",
+        "QFooter",
         "QPageContainer",
         "QPage",
         "QToolbar",
@@ -42,7 +43,14 @@ module.exports = function(ctx) {
         "QItem",
         "QItemSection",
         "QItemLabel",
-        "QSeparator"
+        "QSeparator",
+        "QImg",
+        "QCard",
+        "QCardSection",
+        "QCardActions",
+        "QAvatar",
+        "QForm",
+        "QInput"
       ],
 
       directives: ["Ripple"],
