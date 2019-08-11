@@ -73,15 +73,15 @@ export default {
     onLogin() {
       console.log("login");
 
-      this.isLogginIn = true
+      this.isLogginIn = true;
 
       this.authenticate(this.loginForm)
         .catch(err => {
-          this.$q.notify('Invalid Credentials')
+          this.$q.notify("Invalid Credentials");
         })
         .finally(() => {
-          this.isLogginIn = false
-        })
+          this.isLogginIn = false;
+        });
     },
     loginAsGuest() {
       console.log("login as guest");

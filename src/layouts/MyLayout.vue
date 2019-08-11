@@ -11,9 +11,9 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import BaseHeader from "../components/LayoutComponents/BaseHeader";
 import BaseDrawer from "../components/LayoutComponents/BaseDrawer";
-import { mapActions } from 'vuex'
 
 export default {
   name: "MyLayout",
@@ -27,12 +27,10 @@ export default {
     };
   },
   created() {
-    this.getCurrentUser()
+    this.getCurrentUser();
   },
   methods: {
-    ...mapActions("currentUser", [
-      "getCurrentUser"
-    ])
+    ...mapActions("currentUser", ["getCurrentUser"])
   }
 };
 </script>

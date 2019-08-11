@@ -64,9 +64,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters("currentUser", [
-      "getCurrentUser"
-    ]),
+    ...mapGetters("currentUser", ["getCurrentUser"]),
     _leftDrawerOpen: {
       get() {
         return this.value;
@@ -76,7 +74,7 @@ export default {
       }
     },
     currentUser() {
-      return this.getCurrentUser
+      return this.getCurrentUser;
     }
   },
   methods: {
