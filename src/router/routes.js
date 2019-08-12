@@ -2,6 +2,10 @@ import Store from "../store";
 
 const routes = [
   {
+    path: "/",
+    redirect: "/login"
+  },
+  {
     path: "/chat",
     component: () => import("layouts/MyLayout.vue"),
     children: [

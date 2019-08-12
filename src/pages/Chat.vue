@@ -1,8 +1,11 @@
 <template>
-  <q-page class="chat-list">
-    <div class="flex column no-wrap" style="height: calc(100vh - 50px);">
+  <q-page class="flex">
+    <div class="chat-list flex column no-wrap">
       <MessageList :messages="messages" @onDeleteMessage="onDeleteMessage" />
       <MessageInput @onSendMessage="onSendMessage" />
+    </div>
+    <div class="members-list">
+      <UserList :users="members" />
     </div>
   </q-page>
 </template>
@@ -11,12 +14,14 @@
 import VueCookie from "vue-cookie";
 import { mapActions, mapGetters } from "vuex";
 import MessageList from "@/components/Messages/MessageList";
+import UserList from "@/components/Users/UserList";
 import MessageInput from "@/components/Messages/MessageInput";
 
 export default {
   name: "chat",
   components: {
     MessageList,
+    UserList,
     MessageInput
   },
   data() {
@@ -25,7 +30,9 @@ export default {
   computed: {
     ...mapGetters("channels", [
       "getChannelMessagesCursor",
-      "getChannelMessages"
+      "getChannelMembersCursor",
+      "getChannelMessages",
+      "getChannelMembers"
     ]),
     channelId() {
       return this.$route.params.channelId;
@@ -33,30 +40,46 @@ export default {
     messages() {
       return this.getChannelMessages || [];
     },
-    cursor() {
+    members() {
+      return this.getChannelMembers || [];
+    },
+    cursorMessages() {
       return this.getChannelMessagesCursor;
+    },
+    cursorMembers() {
+      return this.getChannelMembersCursor;
     }
   },
   watch: {
     channelId(n, o) {
       if (n) {
         this.loadChannelMessages({ channelId: this.channelId });
+        this.loadChannelMembers({ channelId: this.channelId });
       }
     }
   },
   mounted() {
     if (this.channelId) {
       this.loadChannelMessages({ channelId: this.channelId });
+      this.loadChannelMembers({ channelId: this.channelId });
     }
   },
   methods: {
-    ...mapActions("channels", ["loadChannelMessages"]),
+    ...mapActions("channels", ["loadChannelMessages", "loadChannelMembers"]),
     ...mapActions("messages", ["sendMessage", "deleteMessage"]),
-    loadNextPage() {
+    loadChannelMessagesNextPage() {
       if (this.channelId) {
         this.loadChannelMessages({
           channelId: this.channelId,
-          cursor: this.cursor
+          cursor: this.cursorMessages
+        });
+      }
+    },
+    loadChannelMembersNextPage() {
+      if (this.channelId) {
+        this.loadChannelMembers({
+          channelId: this.channelId,
+          cursor: this.cursorMembers
         });
       }
     },
@@ -75,4 +98,12 @@ export default {
 };
 </script>
 
-<style lang="stylus" scoped></style>
+<style lang="stylus" scoped>
+.chat-list
+  height: calc(100vh - 50px);
+  flex-grow: 1
+
+.members-list
+  width: 300px
+  border-left: 1px solid $separator-color
+</style>

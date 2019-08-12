@@ -49,3 +49,18 @@ export const channelMessages = gql`
     }
   }
 `;
+
+export const channelMembers = gql`
+  query channelMembers($id: ID!, $orderBy: UserOrderByInput, $cursor: ID) {
+    channelMembers(id: $id, orderBy: $orderBy, cursor: $cursor) {
+      pageInfo {
+        cursor
+      }
+      nodes {
+        id
+        displayName
+        userType
+      }
+    }
+  }
+`;

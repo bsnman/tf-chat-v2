@@ -7,12 +7,15 @@ export default {
   namespaced: true,
   state: {
     myJoinedChannels: {},
-    channelMessages: {}
+    channelMessages: {},
+    channelMembers: {}
   },
   getters: {
     getMyJoinedChannels: state => state.myJoinedChannels.nodes,
-    getChannelMessagesCursor: state => state.myJoinedChannels.cursor,
-    getChannelMessages: state => state.channelMessages.nodes
+    getChannelMessagesCursor: state => state.channelMessages.cursor,
+    getChannelMembersCursor: state => state.channelMembers.cursor,
+    getChannelMessages: state => state.channelMessages.nodes,
+    getChannelMembers: state => state.channelMembers.nodes
   },
   mutations: {
     setMyJoinedChannels(state, v) {
@@ -20,6 +23,9 @@ export default {
     },
     setChannelMessages(state, v) {
       state.channelMessages = v;
+    },
+    setChannelMembers(state, v) {
+      state.channelMembers = v;
     },
     addPlaceholderMessage(state, v) {
       state.channelMessages.nodes.unshift(v);
@@ -33,8 +39,6 @@ export default {
     },
     setMessageDeleting(state, { id }) {
       const index = _.findIndex(state.channelMessages.nodes, e => e.id === id);
-
-      console.log("deleting", index);
 
       if (index >= 0) {
         Vue.set(state.channelMessages.nodes[index], "isDeleting", true);
@@ -74,6 +78,20 @@ export default {
       context.commit("setChannelMessages", result.data.channelMessages);
 
       return result.data.channelMessages.nodes;
+    },
+    async loadChannelMembers(context, { channelId, cursor, orderBy }) {
+      const result = await apolloClient.query({
+        query: queries.channelMembers,
+        variables: {
+          id: channelId,
+          cursor,
+          orderBy
+        }
+      });
+
+      context.commit("setChannelMembers", result.data.channelMembers);
+
+      return result.data.channelMembers.nodes;
     }
   }
 };
