@@ -13,7 +13,12 @@
         autofocus
       >
         <template v-slot:append>
-          <q-icon name="send" />
+          <q-btn 
+            @click="onSendMessage"
+            flat
+            round
+            icon="send" 
+          />
         </template>
       </q-input>
     </div>
