@@ -7,6 +7,7 @@ import { ApolloLink, split, concat } from "apollo-link";
 import { getMainDefinition } from "apollo-utilities";
 import VueCookie from "vue-cookie";
 import fetch from "node-fetch";
+import { Notify } from "quasar";
 import cons from "../utils/constants";
 
 const httpLink = createHttpLink({ uri: `${process.env.GRAPHQL_API}`, fetch });
@@ -45,12 +46,22 @@ const authLink = new ApolloLink((operation, forward) => {
 const link = ApolloLink.from([
   onError(({ graphQLErrors, networkError }) => {
     if (graphQLErrors)
-      graphQLErrors.map(({ message, locations, path }) =>
+      graphQLErrors.map(({ message, locations, path }) => {
         console.log(
           `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
-        )
-      );
-    if (networkError) console.log(`[Network error]: ${networkError}`);
+        );
+
+        Notify.create({
+          message
+        });
+      });
+    if (networkError) {
+      console.log(`[Network error]: ${networkError}`);
+
+      Notify.create({
+        message: `Network Error: ${networkError}`
+      });
+    }
   }),
   authLink,
   httpWsLink

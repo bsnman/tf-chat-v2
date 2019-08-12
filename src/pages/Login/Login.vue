@@ -76,9 +76,6 @@ export default {
       this.isLogginIn = true;
 
       this.authenticate(this.loginForm)
-        .catch(err => {
-          this.$q.notify("Invalid Credentials");
-        })
         .finally(() => {
           this.isLogginIn = false;
         });
