@@ -100,14 +100,16 @@ export default {
     },
     onDeleteMessage(message) {
       this.deleteMessage({ messageId: message.id });
-    }
+    },
+    async getCurrentUser() {}
   }
 };
 </script>
 
 <style lang="stylus" scoped>
 .chat-list
-  height: calc(100vh - 50px);
+  height: calc(100vh - 50px)
+  max-width: calc(100% - 300px)
   flex-grow: 1
 
 .members-list

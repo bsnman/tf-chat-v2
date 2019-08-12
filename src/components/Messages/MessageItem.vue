@@ -79,6 +79,7 @@ export default {
 
 .message-actions
   visibility: hidden
+  margin-left: 5px
   padding-top: 5px
 
   &.show
