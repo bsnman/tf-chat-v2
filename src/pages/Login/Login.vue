@@ -75,10 +75,9 @@ export default {
 
       this.isLogginIn = true;
 
-      this.authenticate(this.loginForm)
-        .finally(() => {
-          this.isLogginIn = false;
-        });
+      this.authenticate(this.loginForm).finally(() => {
+        this.isLogginIn = false;
+      });
     },
     loginAsGuest() {
       console.log("login as guest");
