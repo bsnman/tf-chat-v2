@@ -13,9 +13,10 @@
 <script>
 import VueCookie from "vue-cookie";
 import { mapActions, mapGetters } from "vuex";
-import MessageList from "@/components/Messages/MessageList";
-import UserList from "@/components/Users/UserList";
-import MessageInput from "@/components/Messages/MessageInput";
+import MessageList from "../components/Messages/MessageList";
+import UserList from "../components/Users/UserList";
+import MessageInput from "../components/Messages/MessageInput";
+import * as queries from "../graphql/queries";
 
 export default {
   name: "chat",

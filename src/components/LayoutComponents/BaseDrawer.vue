@@ -30,7 +30,7 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import ChannelList from "@/components/Channels/ChannelList";
+import ChannelList from "../../components/Channels/ChannelList";
 
 export default {
   name: "base-drawer",
