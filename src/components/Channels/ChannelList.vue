@@ -5,13 +5,32 @@
 
       <q-item-label header class="flex justify-between">
         Joined channels
-        <q-btn 
-          @click="showModalJoinChannel = !showModalJoinChannel" 
+        <q-btn-dropdown 
           icon="add" 
-          flat 
-          round 
+          flat
           style="margin: -10px"
-        />
+        >
+          <q-list>
+            <q-item 
+              clickable 
+              v-close-popup 
+              @click="createChannelClick">
+              <q-item-section>
+                <q-item-label>Create Channel</q-item-label>
+              </q-item-section>
+            </q-item>
+
+            <q-item 
+              clickable 
+              v-close-popup 
+              @click="joinChannelClick" 
+            >
+              <q-item-section>
+                <q-item-label>Join Channel</q-item-label>
+              </q-item-section>
+            </q-item>
+          </q-list>
+        </q-btn-dropdown>
       </q-item-label>
 
       <q-item
@@ -99,6 +118,12 @@ export default {
     },
     toChannelSettings(channel) {
       this.$router.push({ path: `/channel/${channel.id}/settings` });
+    },
+    createChannelClick() {
+
+    },
+    joinChannelClick() {
+      this.showModalJoinChannel = !this.showModalJoinChannel
     }
   }
 };
