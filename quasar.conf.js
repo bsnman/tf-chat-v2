@@ -52,10 +52,11 @@ module.exports = function(ctx) {
         "QAvatar",
         "QForm",
         "QInput",
-        "QSpinnerOval"
+        "QSpinnerOval",
+        "QDialog"
       ],
 
-      directives: ["Ripple"],
+      directives: ["Ripple", "ClosePopup"],
 
       // Quasar plugins
       plugins: ["Notify"],

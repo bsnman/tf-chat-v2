@@ -1,47 +1,65 @@
 <template>
-  <q-list class="channel-list">
-    <q-separator />
-    <q-item-label header>Joined Channels</q-item-label>
+  <div class="channel-list">
+    <q-list>
+      <q-separator />
 
-    <q-item
-      class="channel-item"
-      v-for="channel in myJoinedChannels"
-      :key="channel.id"
-      @click="onChannelClick(channel)"
-      clickable
-      v-ripple
-      tag="a"
-      :class="[channel.id === channelId ? 'selected' : '']"
-    >
-      <q-item-section avatar>
-        <q-icon name="fas fa-hashtag" />
-      </q-item-section>
-      <q-item-section>
-        <div class="row items-center justify-between">
-          <q-item-label>
-            {{ channel.title }}
-          </q-item-label>
-          <div class="channel-item-actions">
-            <q-btn
-              v-if="channel.createdBy.id === currentUser.id"
-              @click="onSettingsClick(channel)"
-              icon="settings"
-              round
-              flat
-            />
+      <q-item-label header class="flex justify-between">
+        Joined channels
+        <q-btn 
+          @click="showModalJoinChannel = !showModalJoinChannel" 
+          icon="add" 
+          flat 
+          round 
+          style="margin: -10px"
+        />
+      </q-item-label>
+
+      <q-item
+        class="channel-item"
+        v-for="channel in myJoinedChannels"
+        :key="channel.id"
+        @click="onChannelClick(channel)"
+        clickable
+        v-ripple
+        tag="a"
+        :class="[channel.id === channelId ? 'selected' : '']"
+      >
+        <q-item-section avatar>
+          <q-icon name="fas fa-hashtag" />
+        </q-item-section>
+        <q-item-section>
+          <div class="row items-center justify-between">
+            <q-item-label>
+              {{ channel.title }}
+            </q-item-label>
+            <div class="channel-item-actions">
+              <q-btn
+                v-if="channel.createdBy.id === currentUser.id"
+                @click="onSettingsClick(channel)"
+                icon="settings"
+                round
+                flat
+              />
+            </div>
           </div>
-        </div>
-      </q-item-section>
-    </q-item>
-  </q-list>
+        </q-item-section>
+      </q-item>
+    </q-list>
+
+    <ModalJoinChannel v-model="showModalJoinChannel" />
+  </div>
 </template>
 
 <script>
+import ModalJoinChannel from '../Modals/ModalJoinChannel'
 import { mapGetters, mapActions } from "vuex";
 import _ from "lodash";
 
 export default {
   name: "channel-list",
+  components: {
+    ModalJoinChannel
+  },
   computed: {
     ...mapGetters("channels", ["getMyJoinedChannels"]),
     ...mapGetters("currentUser", ["getCurrentUser"]),
@@ -53,6 +71,11 @@ export default {
     },
     channelId() {
       return this.$route.params.channelId;
+    }
+  },
+  data() {
+    return {
+      showModalJoinChannel: false
     }
   },
   created() {
