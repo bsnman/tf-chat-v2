@@ -1,9 +1,10 @@
 <template>
-  <q-list>
+  <q-list class="channel-list">
     <q-separator />
     <q-item-label header>Joined Channels</q-item-label>
 
     <q-item
+      class="channel-item"
       v-for="channel in myJoinedChannels"
       :key="channel.id"
       @click="onChannelClick(channel)"
@@ -20,13 +21,15 @@
           <q-item-label>
             {{ channel.title }}
           </q-item-label>
-          <q-btn
-            v-if="channel.createdBy.id === currentUser.id"
-            @click="onSettingsClick(channel)"
-            icon="settings"
-            round
-            flat
-          />
+          <div class="channel-item-actions">
+            <q-btn
+              v-if="channel.createdBy.id === currentUser.id"
+              @click="onSettingsClick(channel)"
+              icon="settings"
+              round
+              flat
+            />
+          </div>
         </div>
       </q-item-section>
     </q-item>
@@ -66,11 +69,13 @@ export default {
     },
     onSettingsClick(channel) {
       event.stopPropagation();
-
-      console.log("channel settings click");
+      this.toChannelSettings(channel);
     },
     toChannel(channel) {
       this.$router.push({ path: `/chat/${channel.id}` });
+    },
+    toChannelSettings(channel) {
+      this.$router.push({ path: `/channel/${channel.id}/settings` });
     }
   }
 };
@@ -79,4 +84,13 @@ export default {
 <style lang="stylus" scoped>
 .selected
   background: $secondary
+
+.channel-list
+  .channel-item
+    &:hover
+      .channel-item-actions
+        visibility: inherit
+
+  .channel-item-actions
+    visibility: hidden
 </style>

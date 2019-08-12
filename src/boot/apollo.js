@@ -56,10 +56,15 @@ const link = ApolloLink.from([
   httpWsLink
 ]);
 
+// Create cache with unique IDs
+const cache = new InMemoryCache({
+  dataIdFromObject: o => o.id
+});
+
 // Create the apollo client
 export const apolloClient = new ApolloClient({
   link,
-  cache: new InMemoryCache(),
+  cache,
   connectToDevTools: true
 });
 

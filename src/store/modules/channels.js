@@ -9,7 +9,8 @@ export default {
   state: {
     myJoinedChannels: {},
     channelMessages: {},
-    channelMembers: {}
+    channelMembers: {},
+    singleChannel: {}
   },
   getters: {
     getMyJoinedChannels: state => state.myJoinedChannels.nodes,

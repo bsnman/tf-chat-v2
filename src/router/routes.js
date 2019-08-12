@@ -16,6 +16,22 @@ const routes = [
         meta: {
           auth: 1
         }
+      },
+      {
+        path: "/channel/:channelId/settings",
+        name: "Channel Settings",
+        component: () => import("pages/ChannelSettings.vue"),
+        meta: {
+          auth: 1
+        }
+      },
+      {
+        path: "/user/profile",
+        name: "User Profile",
+        component: () => import("pages/UserProfile.vue"),
+        meta: {
+          auth: 1
+        }
       }
     ]
   },
