@@ -59,6 +59,7 @@ export const channelMembers = gql`
       nodes {
         id
         displayName
+        email
         userType
       }
     }

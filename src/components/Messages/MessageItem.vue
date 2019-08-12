@@ -23,6 +23,7 @@
       </div>
       <div class="message-actions" :class="[message.isDeleting ? 'show' : '']">
         <q-btn
+          v-if="message.user.id === currentUser.id"
           @click="onDeleteClick"
           :loading="message.isDeleting"
           round
@@ -35,12 +36,20 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "message-item",
   props: {
     message: {
       type: Object,
       required: true
+    }
+  },
+  computed: {
+    ...mapGetters("currentUser", ["getCurrentUser"]),
+    currentUser() {
+      return this.getCurrentUser;
     }
   },
   methods: {

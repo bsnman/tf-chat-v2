@@ -18,7 +18,7 @@ export default {
         isPlaceholder: true
       };
 
-      context.commit("channels/addPlaceholderMessage", placeholderMessage, {
+      context.commit("channels/addNewMessage", placeholderMessage, {
         root: 1
       });
 

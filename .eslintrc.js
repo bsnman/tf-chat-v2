@@ -50,7 +50,8 @@ module.exports = {
     'no-unused-vars': 'off',
     'func-names': 'off',
     'no-restricted-syntax': 'off',
-    "prettier/prettier": 'error',
+    'prettier/prettier': 'error',
+    'no-restricted-globals': 'off',
 
     // allow console.log during development only
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',

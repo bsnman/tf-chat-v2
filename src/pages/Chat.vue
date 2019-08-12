@@ -55,6 +55,7 @@ export default {
       if (n) {
         this.loadChannelMessages({ channelId: this.channelId });
         this.loadChannelMembers({ channelId: this.channelId });
+        this.onChannelMessageMutation({ channelId: this.channelId });
       }
     }
   },
@@ -62,10 +63,15 @@ export default {
     if (this.channelId) {
       this.loadChannelMessages({ channelId: this.channelId });
       this.loadChannelMembers({ channelId: this.channelId });
+      this.onChannelMessageMutation({ channelId: this.channelId });
     }
   },
   methods: {
-    ...mapActions("channels", ["loadChannelMessages", "loadChannelMembers"]),
+    ...mapActions("channels", [
+      "loadChannelMessages",
+      "loadChannelMembers",
+      "onChannelMessageMutation"
+    ]),
     ...mapActions("messages", ["sendMessage", "deleteMessage"]),
     loadChannelMessagesNextPage() {
       if (this.channelId) {

@@ -2,6 +2,7 @@ import { apolloClient } from "boot/apollo";
 import _ from "lodash";
 import Vue from "vue";
 import * as queries from "../../graphql/queries";
+import * as subscriptions from "../../graphql/subscriptions";
 
 export default {
   namespaced: true,
@@ -27,8 +28,17 @@ export default {
     setChannelMembers(state, v) {
       state.channelMembers = v;
     },
-    addPlaceholderMessage(state, v) {
-      state.channelMessages.nodes.unshift(v);
+    addNewMessage(state, v) {
+      const index = _.findIndex(
+        state.channelMessages.nodes,
+        e => e.id === v.id
+      );
+
+      if (index >= 0) {
+        state.channelMessages.nodes.splice(index, 1, v);
+      } else {
+        state.channelMessages.nodes.unshift(v);
+      }
     },
     replacePlaceholderMessage(state, { id, message }) {
       const index = _.findIndex(state.channelMessages.nodes, e => e.id === id);
@@ -92,6 +102,30 @@ export default {
       context.commit("setChannelMembers", result.data.channelMembers);
 
       return result.data.channelMembers.nodes;
+    },
+    onChannelMessageMutation(context, { channelId }) {
+      const subscriber = apolloClient.subscribe({
+        query: subscriptions.onChannelMessage,
+        variables: {
+          channelId
+        }
+      });
+
+      subscriber.subscribe({
+        next(result) {
+          const mutatedMessage = result.data.onChannelMessage.node;
+          const { previousValues } = result.data.onChannelMessage;
+          const { mutation } = result.data.onChannelMessage;
+
+          console.log("onChannelMessage", mutation, mutatedMessage);
+
+          if (mutation === "CREATED") {
+            context.commit("addNewMessage", mutatedMessage);
+          } else if (mutation === "DELETED") {
+            context.commit("removeMessage", previousValues);
+          }
+        }
+      });
     }
   }
 };

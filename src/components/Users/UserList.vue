@@ -14,6 +14,7 @@
             </q-item-label>
             <small v-if="user.userType == 'ADMIN'">{{ user.userType }}</small>
           </div>
+          <small>{{ user.email }}</small>
         </q-item-section>
       </q-item>
     </template>

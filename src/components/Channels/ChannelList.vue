@@ -22,8 +22,9 @@
           </q-item-label>
           <q-btn
             v-if="channel.createdBy.id === currentUser.id"
-            @click.prevent="onSettingsClick(channel)"
+            @click="onSettingsClick(channel)"
             icon="settings"
+            round
             flat
           />
         </div>
@@ -63,7 +64,11 @@ export default {
     onChannelClick(channel) {
       this.toChannel(channel);
     },
-    onSettingsClick(channel) {},
+    onSettingsClick(channel) {
+      event.stopPropagation();
+
+      console.log("channel settings click");
+    },
     toChannel(channel) {
       this.$router.push({ path: `/chat/${channel.id}` });
     }
