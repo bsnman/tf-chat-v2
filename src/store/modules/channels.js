@@ -2,6 +2,7 @@ import { apolloClient } from "boot/apollo";
 import _ from "lodash";
 import Vue from "vue";
 import * as queries from "../../graphql/queries";
+import * as mutations from "../../graphql/mutations";
 import * as subscriptions from "../../graphql/subscriptions";
 
 export default {
@@ -13,6 +14,7 @@ export default {
     singleChannel: {}
   },
   getters: {
+    getSingleChannel: state => state.singleChannel,
     getMyJoinedChannels: state => state.myJoinedChannels.nodes,
     getChannelMessagesCursor: state => state.channelMessages.cursor,
     getChannelMembersCursor: state => state.channelMembers.cursor,
@@ -20,6 +22,9 @@ export default {
     getChannelMembers: state => state.channelMembers.nodes
   },
   mutations: {
+    setSingleChannel(state, v) {
+      state.singleChannel = v;
+    },
     setMyJoinedChannels(state, v) {
       state.myJoinedChannels = v;
     },
@@ -28,6 +33,16 @@ export default {
     },
     setChannelMembers(state, v) {
       state.channelMembers = v;
+    },
+    updateChannel(state, v) {
+      const index = _.findIndex(
+        state.myJoinedChannels.nodes,
+        e => e.id === v.id
+      );
+
+      if (index >= 0) {
+        state.myJoinedChannels.nodes.splice(index, 1, v);
+      }
     },
     addNewMessage(state, v) {
       const index = _.findIndex(
@@ -64,6 +79,18 @@ export default {
     }
   },
   actions: {
+    async loadSingleChannel(context, { channelId }) {
+      const result = await apolloClient.query({
+        query: queries.channel,
+        variables: {
+          id: channelId
+        }
+      });
+
+      context.commit("setSingleChannel", result.data.channel);
+
+      return result.data.channel;
+    },
     async loadMyJoinedChannels(context) {
       const result = await apolloClient.query({
         query: queries.myJoinedChannels
@@ -127,6 +154,17 @@ export default {
           }
         }
       });
+    },
+    async updateChannel(context, { payload }) {
+      const result = await apolloClient.mutate({
+        mutation: mutations.updateChannel,
+        variables: payload
+      });
+
+      context.commit("updateChannel", result.data.updateChannel);
+      context.commit("setSingleChannel", payload);
+
+      return result.data.updateChannel;
     }
   }
 };

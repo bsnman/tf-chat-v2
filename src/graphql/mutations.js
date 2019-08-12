@@ -40,3 +40,15 @@ export const deleteMessage = gql`
     }
   }
 `;
+
+export const updateChannel = gql`
+  mutation updateChannel($id: ID!, $title: String!) {
+    updateChannel(id: $id, title: $title) {
+      id
+      title
+      createdBy {
+        id
+      }
+    }
+  }
+`;

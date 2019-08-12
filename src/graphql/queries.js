@@ -65,3 +65,16 @@ export const channelMembers = gql`
     }
   }
 `;
+
+export const channel = gql`
+  query channel($id: ID!) {
+    channel(id: $id) {
+      id
+      title
+      createdBy {
+        id
+        displayName
+      }
+    }
+  }
+`;
