@@ -5,17 +5,13 @@
         Join Channel
       </div>
       <q-card-section>
-        <q-input
-          v-model="channelId"
-          label="Channel Id"
-        >
-        </q-input>
+        <q-input v-model="channelId" label="Channel Id"> </q-input>
       </q-card-section>
       <q-card-actions class="flex justify-end">
-        <q-btn flat v-close-popup >
+        <q-btn flat v-close-popup>
           Close
         </q-btn>
-        <q-btn color="primary" flat >
+        <q-btn color="primary" flat>
           Join
         </q-btn>
       </q-card-actions>
@@ -32,7 +28,7 @@ export default {
   computed: {
     showModal: {
       get() {
-        return this.value
+        return this.value;
       },
       set(v) {
         this.$emit("input", v);
@@ -42,9 +38,9 @@ export default {
   data() {
     return {
       channelId: ""
-    }
-  },
-}
+    };
+  }
+};
 </script>
 
 <style lang="stylus" scoped>
@@ -52,4 +48,3 @@ export default {
   padding: 20px 25px
   width: 350px
 </style>
-

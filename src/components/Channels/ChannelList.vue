@@ -5,26 +5,15 @@
 
       <q-item-label header class="flex justify-between">
         Joined channels
-        <q-btn-dropdown 
-          icon="add" 
-          flat
-          style="margin: -10px"
-        >
+        <q-btn-dropdown icon="add" flat style="margin: -10px" rounded>
           <q-list>
-            <q-item 
-              clickable 
-              v-close-popup 
-              @click="createChannelClick">
+            <q-item clickable v-close-popup @click="createChannelClick">
               <q-item-section>
                 <q-item-label>Create Channel</q-item-label>
               </q-item-section>
             </q-item>
 
-            <q-item 
-              clickable 
-              v-close-popup 
-              @click="joinChannelClick" 
-            >
+            <q-item clickable v-close-popup @click="joinChannelClick">
               <q-item-section>
                 <q-item-label>Join Channel</q-item-label>
               </q-item-section>
@@ -70,9 +59,9 @@
 </template>
 
 <script>
-import ModalJoinChannel from '../Modals/ModalJoinChannel'
 import { mapGetters, mapActions } from "vuex";
 import _ from "lodash";
+import ModalJoinChannel from "../Modals/ModalJoinChannel";
 
 export default {
   name: "channel-list",
@@ -95,7 +84,7 @@ export default {
   data() {
     return {
       showModalJoinChannel: false
-    }
+    };
   },
   created() {
     this.loadMyJoinedChannels().then(res => {
@@ -119,11 +108,9 @@ export default {
     toChannelSettings(channel) {
       this.$router.push({ path: `/channel/${channel.id}/settings` });
     },
-    createChannelClick() {
-
-    },
+    createChannelClick() {},
     joinChannelClick() {
-      this.showModalJoinChannel = !this.showModalJoinChannel
+      this.showModalJoinChannel = !this.showModalJoinChannel;
     }
   }
 };
