@@ -11,19 +11,6 @@
           <q-item-label caption>{{ currentUser.userType }}</q-item-label>
         </q-item-section>
       </q-item>
-
-      <q-separator />
-      <q-item-label header>Users</q-item-label>
-
-      <q-item clickable v-ripple tag="a">
-        <q-item-section avatar>
-          <q-icon name="person" />
-        </q-item-section>
-        <q-item-section>
-          <q-item-label>Juan Luna</q-item-label>
-          <q-item-label caption>member</q-item-label>
-        </q-item-section>
-      </q-item>
     </q-list>
 
     <channel-list />
