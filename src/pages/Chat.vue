@@ -4,7 +4,7 @@
       <MessageList :messages="messages" @onDeleteMessage="onDeleteMessage" />
       <MessageInput @onSendMessage="onSendMessage" />
     </div>
-    <div class="members-list">
+    <div class="members-list gt-xs">
       <UserList :users="members" />
     </div>
   </q-page>
@@ -100,8 +100,7 @@ export default {
     },
     onDeleteMessage(message) {
       this.deleteMessage({ messageId: message.id });
-    },
-    async getCurrentUser() {}
+    }
   }
 };
 </script>
@@ -111,6 +110,10 @@ export default {
   height: calc(100vh - 50px)
   max-width: calc(100% - 300px)
   flex-grow: 1
+
+@media (max-width $breakpoint-xs-max)
+  .chat-list
+    max-width: 100%
 
 .members-list
   width: 300px

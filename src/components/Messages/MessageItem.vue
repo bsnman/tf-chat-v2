@@ -1,7 +1,7 @@
 <template>
   <div class="message-item" :class="[message.isPlaceholder ? 'sending' : '']">
     <q-separator />
-    <div class="message-container flex">
+    <div class="message-container flex no-wrap">
       <div class="message-details">
         <div class="text-subtitle2">
           {{ message.user.displayName }}

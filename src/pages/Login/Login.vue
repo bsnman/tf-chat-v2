@@ -1,8 +1,8 @@
 <template>
-  <q-page class="flex flex-center">
+  <q-page class="login flex flex-center">
     <q-card>
       <q-card-section>
-        <q-img src="../assets/logo.png" width="150" height="150" />
+        <q-img class="third-logo" src="../assets/logo.png" width="150" height="150" />
         <p class="text-h6">
           Login
         </p>
@@ -87,6 +87,16 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+.login
+  padding: 10px
+
 .login-form
   width: 350px
+
+@media (max-width $breakpoint-xs-max)
+  .login-form
+    width: 85vw
+
+  .third-logo
+    height: 55vw
 </style>
