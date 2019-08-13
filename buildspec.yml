@@ -11,7 +11,7 @@ phases:
       - yarn install
   build:
     commands:
-      - yarn build:dev
+      - yarn build:prod
   post_build:
     commands:
       - echo nothing to do
