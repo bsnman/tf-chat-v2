@@ -50,7 +50,9 @@ module.exports = {
     'no-unused-vars': 'off',
     'func-names': 'off',
     'no-restricted-syntax': 'off',
-    'prettier/prettier': 'error',
+    'prettier/prettier': ['error', {
+      'endOfLine': 'auto'
+    }],
     'no-restricted-globals': 'off',
 
     // allow console.log during development only
