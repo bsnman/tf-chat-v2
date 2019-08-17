@@ -13,7 +13,7 @@ import cons from "../utils/constants";
 const httpLink = createHttpLink({ uri: `${process.env.GRAPHQL_API}`, fetch });
 
 const wsLink = new WebSocketLink({
-  uri: `${process.env.GARPHQL_WEBSOCKET}`,
+  uri: `${process.env.GRAPHQL_WEBSOCKET}`,
   options: {
     reconnect: true
   }
