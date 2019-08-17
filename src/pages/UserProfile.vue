@@ -1,13 +1,11 @@
 <template>
-  <div id="q-app">
-    <router-view />
+  <div class="user-profile">
+    User Profile
   </div>
 </template>
 
 <script>
 export default {
-  name: "App"
+  name: "user-profile"
 };
 </script>
-
-<style></style>

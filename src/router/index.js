@@ -1,7 +1,8 @@
-import Vue from 'vue';
-import VueRouter from 'vue-router';
+import Vue from "vue";
+import VueRouter from "vue-router";
+// import Store from "../store";
 
-import routes from './routes';
+import routes from "./routes";
 
 Vue.use(VueRouter);
 
@@ -10,7 +11,7 @@ Vue.use(VueRouter);
  * directly export the Router instantiation
  */
 
-export default function (/* { store, ssrContext } */) {
+export default function({ store }) {
   const Router = new VueRouter({
     scrollBehavior: () => ({ x: 0, y: 0 }),
     routes,
@@ -19,7 +20,16 @@ export default function (/* { store, ssrContext } */) {
     // quasar.conf.js -> build -> vueRouterMode
     // quasar.conf.js -> build -> publicPath
     mode: process.env.VUE_ROUTER_MODE,
-    base: process.env.VUE_ROUTER_BASE,
+    base: process.env.VUE_ROUTER_BASE
+  });
+
+  Router.beforeEach((to, from, next) => {
+    if (to.meta.auth && !store.getters["auth/isAuthenticated"]) {
+      store.commit("auth/clearAuthentication");
+      next("/login");
+      return;
+    }
+    next();
   });
 
   return Router;
