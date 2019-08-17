@@ -16,6 +16,34 @@ export const login = gql`
   }
 `;
 
+export const signup = gql`
+  mutation register(
+    $firstName: String!
+    $lastName: String!
+    $email: String!
+    $password: String!
+  ) {
+    signup(
+      firstName: $firstName
+      lastName: $lastName
+      email: $email
+      password: $password
+    ) {
+      token
+      user {
+        id
+        firstName
+        lastName
+        displayName
+        userType
+        email
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+
 export const sendMessage = gql`
   mutation sendMessage($channelId: ID!, $body: String!) {
     sendMessage(channelId: $channelId, body: $body) {
