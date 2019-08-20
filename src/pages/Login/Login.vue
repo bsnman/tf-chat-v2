@@ -12,7 +12,7 @@
             label="Email"
             lazy-rules
             :rules="[
-              val => (val && val.length > 0) || 'Please enter your email',
+              val => (val && val.trim().length > 0) || 'Please enter your email',
               val => isValidEmail || 'Please enter a valid email'
             ]"
           />
@@ -23,7 +23,7 @@
             type="password"
             lazy-rules
             :rules="[
-              val => (val && val.length > 0) || 'Please enter your password'
+              val => (val && val.trim().length > 0) || 'Please enter your password'
             ]"
           />
           <div>
@@ -33,13 +33,13 @@
             </p>
           </div>
           <div style="display: flex; justify-content: flex-end">
-            <q-btn @click="loginAsGuest" label="Guest" :disable="isLogginIn" />
+            <q-btn @click="loginAsGuest" label="Guest" :disable="isLoggingIn" />
             <q-btn
               label="Login"
               type="submit"
               color="primary"
               style="margin-left: 10px;"
-              :loading="isLogginIn"
+              :loading="isLoggingIn"
             />
           </div>
         </q-form>
@@ -59,7 +59,7 @@ export default {
         email: "",
         password: ""
       },
-      isLogginIn: false
+      isLoggingIn: false
     };
   },
   computed: {
@@ -71,12 +71,10 @@ export default {
   methods: {
     ...mapActions("auth", ["authenticate", "authenticateGuest"]),
     onLogin() {
-      console.log("login");
-
-      this.isLogginIn = true;
+      this.isLoggingIn = true;
 
       this.authenticate(this.loginForm).finally(() => {
-        this.isLogginIn = false;
+        this.isLoggingIn = false;
       });
     },
     loginAsGuest() {
