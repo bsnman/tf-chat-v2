@@ -5,6 +5,7 @@
       <MessageInput @onSendMessage="onSendMessage" />
     </div>
     <div class="members-list gt-xs">
+      <ChannelInfo :channel="channel" />
       <UserList :users="members" />
     </div>
   </q-page>
@@ -15,6 +16,7 @@ import VueCookie from "vue-cookie";
 import { mapActions, mapGetters } from "vuex";
 import MessageList from "../components/Messages/MessageList";
 import UserList from "../components/Users/UserList";
+import ChannelInfo from "../components/Channels/ChannelInfo";
 import MessageInput from "../components/Messages/MessageInput";
 import * as queries from "../graphql/queries";
 
@@ -23,6 +25,7 @@ export default {
   components: {
     MessageList,
     UserList,
+    ChannelInfo,
     MessageInput
   },
   data() {
@@ -30,11 +33,15 @@ export default {
   },
   computed: {
     ...mapGetters("channels", [
+      "getSingleChannel",
       "getChannelMessagesCursor",
       "getChannelMembersCursor",
       "getChannelMessages",
       "getChannelMembers"
     ]),
+    channel() {
+      return this.getSingleChannel || {}
+    },
     channelId() {
       return this.$route.params.channelId;
     },
@@ -54,6 +61,7 @@ export default {
   watch: {
     channelId(n, o) {
       if (n) {
+        this.loadSingleChannel({ channelId: this.channelId });
         this.loadChannelMessages({ channelId: this.channelId });
         this.loadChannelMembers({ channelId: this.channelId });
         this.onChannelMessageMutation({ channelId: this.channelId });
@@ -62,6 +70,7 @@ export default {
   },
   mounted() {
     if (this.channelId) {
+      this.loadSingleChannel({ channelId: this.channelId });
       this.loadChannelMessages({ channelId: this.channelId });
       this.loadChannelMembers({ channelId: this.channelId });
       this.onChannelMessageMutation({ channelId: this.channelId });
@@ -69,6 +78,7 @@ export default {
   },
   methods: {
     ...mapActions("channels", [
+      "loadSingleChannel",
       "loadChannelMessages",
       "loadChannelMembers",
       "onChannelMessageMutation"

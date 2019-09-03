@@ -12,7 +12,7 @@
             label="Email"
             lazy-rules
             :rules="[
-              val => (val && val.length > 0) || 'Please enter your email',
+              val => (val && val.trim().length > 0) || 'Please enter your email',
               val => isValidEmail || 'Please enter a valid email'
             ]"
           />
@@ -23,7 +23,7 @@
             type="password"
             lazy-rules
             :rules="[
-              val => (val && val.length > 0) || 'Please enter your password'
+              val => (val && val.trim().length > 0) || 'Please enter your password'
             ]"
           />
           <div>
@@ -71,8 +71,6 @@ export default {
   methods: {
     ...mapActions("auth", ["authenticate", "authenticateGuest"]),
     onLogin() {
-      console.log("login");
-
       this.isLoggingIn = true;
 
       this.authenticate(this.loginForm).finally(() => {
