@@ -6,13 +6,13 @@
           Join Channel
         </div>
         <q-card-section>
-          <q-input 
-            v-model="channelId" 
+          <q-input
+            v-model="channelId"
             label="Channel Id"
             hint="Ask your friend to give you the channel id"
             lazy-rules
-            :rules="[ 
-              val => val && val.length != 0 || 'Channel id cannot be empty'
+            :rules="[
+              val => (val && val.length != 0) || 'Channel id cannot be empty'
             ]"
           />
         </q-card-section>
@@ -30,7 +30,8 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions } from "vuex";
+
 export default {
   name: "modal-join-channel",
   props: {
@@ -52,14 +53,11 @@ export default {
     };
   },
   methods: {
-    ...mapActions("channels", [
-      "joinChannel"
-    ]),
+    ...mapActions("channels", ["joinChannel"]),
     joinChannelClick() {
-
       this.joinChannel({
         channelId: this.channelId
-      })
+      });
     }
   }
 };

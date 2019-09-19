@@ -1,8 +1,11 @@
 <template>
-  <div class="message-item" :class="{
+  <div
+    class="message-item"
+    :class="{
       sending: message.isPlaceholder,
       owner: isMessageOwner
-    }">
+    }"
+  >
     <q-separator />
     <div class="message-container flex no-wrap">
       <div class="message-details">
@@ -55,7 +58,7 @@ export default {
       return this.getCurrentUser;
     },
     isMessageOwner() {
-      return this.currentUser.id === this.message.user.id
+      return this.currentUser.id === this.message.user.id;
     }
   },
   methods: {

@@ -31,10 +31,10 @@
         v-ripple
         tag="a"
         :class="[channel.id === channelId ? 'selected' : '']"
-    >
-      <q-item-section avatar>
-        <q-icon name="fas fa-hashtag" />
-      </q-item-section>
+      >
+        <q-item-section avatar>
+          <q-icon name="fas fa-hashtag" />
+        </q-item-section>
         <q-item-section>
           <div class="row items-center justify-between">
             <q-item-label>

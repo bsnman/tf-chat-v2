@@ -2,7 +2,12 @@
   <q-page class="login flex flex-center">
     <q-card>
       <q-card-section>
-        <q-img class="third-logo" src="../assets/logo.png" width="150" height="150" />
+        <q-img
+          class="third-logo"
+          src="../assets/logo.png"
+          width="150"
+          height="150"
+        />
         <p class="text-h6">
           Login
         </p>
@@ -12,7 +17,8 @@
             label="Email"
             lazy-rules
             :rules="[
-              val => (val && val.trim().length > 0) || 'Please enter your email',
+              val =>
+                (val && val.trim().length > 0) || 'Please enter your email',
               val => isValidEmail || 'Please enter a valid email'
             ]"
           />
@@ -23,7 +29,8 @@
             type="password"
             lazy-rules
             :rules="[
-              val => (val && val.trim().length > 0) || 'Please enter your password'
+              val =>
+                (val && val.trim().length > 0) || 'Please enter your password'
             ]"
           />
           <div>

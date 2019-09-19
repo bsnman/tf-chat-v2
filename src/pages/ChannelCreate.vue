@@ -1,25 +1,35 @@
 <template>
   <q-page class="flex">
     <div class="channel-create flex justify-center">
-      <q-form class="channel-create-form" @submit="createChannelClick" ref="formCreateChannel">
+      <q-form
+        class="channel-create-form"
+        @submit="createChannelClick"
+        ref="formCreateChannel"
+      >
         <h5>Create Channel</h5>
         <q-item-label>
-          <q-input 
+          <q-input
             filled
             v-model="roomTitle"
             label="Room Title"
             hint="My amazing room"
             lazy-rules
-            :rules="[ 
-              val => val && val.length != 0 || 'Channel without a name wont survive in the wild',
-              val => val && val.length > 4 || 'Channel name must be atleast 4 characters',
-              val => val && val.length < 32 || 'Channel name cannot exceed 32 characters'
+            :rules="[
+              val =>
+                (val && val.length != 0) ||
+                'Channel without a name wont survive in the wild',
+              val =>
+                (val && val.length > 4) ||
+                'Channel name must be atleast 4 characters',
+              val =>
+                (val && val.length < 32) ||
+                'Channel name cannot exceed 32 characters'
             ]"
           />
         </q-item-label>
 
         <div class="channel-create-action flex justify-end">
-          <q-btn label="Create" type="submit" color="primary"/>
+          <q-btn label="Create" type="submit" color="primary" />
         </div>
       </q-form>
     </div>
@@ -27,33 +37,30 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions } from "vuex";
+
 export default {
   name: "channel-create",
   data() {
     return {
       roomTitle: ""
-    }
+    };
   },
   methods: {
-    ...mapActions("channels", [
-      "createChannel"
-    ]),
+    ...mapActions("channels", ["createChannel"]),
     createChannelClick() {
+      this.$refs.formCreateChannel.validate().then(success => {
+        if (success) {
+          const payload = {
+            title: this.roomTitle
+          };
 
-      this.$refs.formCreateChannel.validate()
-        .then(success => {
-          if(success) {
-            let payload = {
-              title: this.roomTitle
-            }
-
-            this.createChannel(payload)
-          }
-        })
-    },
+          this.createChannel(payload);
+        }
+      });
+    }
   }
-}
+};
 </script>
 
 <style lang="stylus" scoped>
@@ -66,6 +73,6 @@ export default {
   width: 500px;
   max-width: 90%;
 
-.channel-create-action 
+.channel-create-action
   margin-top: 20px;
 </style>

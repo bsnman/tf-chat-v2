@@ -40,7 +40,7 @@ export default {
       "getChannelMembers"
     ]),
     channel() {
-      return this.getSingleChannel || {}
+      return this.getSingleChannel || {};
     },
     channelId() {
       return this.$route.params.channelId;
