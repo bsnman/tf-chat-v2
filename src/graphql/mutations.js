@@ -80,3 +80,31 @@ export const updateChannel = gql`
     }
   }
 `;
+
+export const createChannel = gql`
+  mutation createChannel($title: String, $initialMessage: String) {
+    createChannel(title: $title, initialMessage: $initialMessage) {
+      id
+      title
+      createdBy {
+        id
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+
+export const joinChannel = gql`
+  mutation joinChannel($id: ID!) {
+    joinChannel(id: $id) {
+      id
+      title
+      createdBy {
+        id
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;

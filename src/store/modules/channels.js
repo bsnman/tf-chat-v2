@@ -5,6 +5,8 @@ import * as queries from "../../graphql/queries";
 import * as mutations from "../../graphql/mutations";
 import * as subscriptions from "../../graphql/subscriptions";
 
+import ringtone from "../../utils/ringtone";
+
 export default {
   namespaced: true,
   state: {
@@ -19,7 +21,13 @@ export default {
     getChannelMessagesCursor: state => state.channelMessages.cursor,
     getChannelMembersCursor: state => state.channelMembers.cursor,
     getChannelMessages: state => state.channelMessages.nodes,
-    getChannelMembers: state => state.channelMembers.nodes
+    getChannelMembers: state => state.channelMembers.nodes,
+    isViewingChannel: state => ({ channelId, currentRoute }) => {
+      return (
+        currentRoute.name === "Channel" &&
+        currentRoute.params.channelId === channelId
+      );
+    }
   },
   mutations: {
     setSingleChannel(state, v) {
@@ -33,6 +41,17 @@ export default {
     },
     setChannelMembers(state, v) {
       state.channelMembers = v;
+    },
+    addMyJoinedChannel(state, v) {
+      const index = state.myJoinedChannels.nodes.findIndex(
+        channel => channel.id === v.id
+      );
+
+      if (index >= 0) {
+        state.myJoinedChannels.nodes.splice(index, 1, v);
+      } else {
+        state.myJoinedChannels.nodes.unshift(v);
+      }
     },
     updateChannel(state, v) {
       const index = _.findIndex(
@@ -132,6 +151,8 @@ export default {
       return result.data.channelMembers.nodes;
     },
     onChannelMessageMutation(context, { channelId }) {
+      const self = this;
+
       const subscriber = apolloClient.subscribe({
         query: subscriptions.onChannelMessage,
         variables: {
@@ -141,11 +162,20 @@ export default {
 
       subscriber.subscribe({
         next(result) {
+          const currentRoute = self.$router.history.current;
           const mutatedMessage = result.data.onChannelMessage.node;
           const { previousValues } = result.data.onChannelMessage;
           const { mutation } = result.data.onChannelMessage;
 
-          console.log("onChannelMessage", mutation, mutatedMessage);
+          const currentUser = context.rootGetters["currentUser/getCurrentUser"];
+
+          if (
+            mutatedMessage.user.id !== currentUser.id &&
+            (document.visibilityState === "hidden" ||
+              !context.getters.isViewingChannel({ channelId, currentRoute }))
+          ) {
+            ringtone.play();
+          }
 
           if (mutation === "CREATED") {
             context.commit("addNewMessage", mutatedMessage);
@@ -165,6 +195,41 @@ export default {
       context.commit("setSingleChannel", payload);
 
       return result.data.updateChannel;
+    },
+    async createChannel(context, { title, initialMessage }) {
+      const variables = {
+        title,
+        initialMessage
+      };
+
+      try {
+        const result = await apolloClient.mutate({
+          mutation: mutations.createChannel,
+          variables
+        });
+
+        context.commit("addMyJoinedChannel", result.data.createChannel);
+
+        return result.data.createChannel;
+      } catch (err) {
+        return err;
+      }
+    },
+    async joinChannel(context, { channelId }) {
+      try {
+        const result = await apolloClient.mutate({
+          mutation: mutations.joinChannel,
+          variables: {
+            id: channelId
+          }
+        });
+
+        context.commit("addMyJoinedChannel", result.data.joinChannel);
+
+        return result.data.joinChannel;
+      } catch (err) {
+        return err;
+      }
     }
   }
 };

@@ -11,7 +11,7 @@
 import dateFns from "date-fns";
 
 export default {
-  name: "time",
+  name: "time-display",
   props: {
     date: {
       type: [Date, String],

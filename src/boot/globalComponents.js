@@ -1,5 +1,5 @@
-import Time from "../components/Time";
+import TimeDisplay from "../components/TimeDisplay";
 
 export default async ({ Vue }) => {
-  Vue.component("Time", Time);
+  Vue.component("TimeDisplay", TimeDisplay);
 };

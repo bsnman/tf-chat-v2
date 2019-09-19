@@ -1,8 +1,8 @@
 <template>
   <div class="channel-info">
     <q-list class="user-list">
-    <q-item-label header>Channel</q-item-label>
-      
+      <q-item-label header>Channel</q-item-label>
+
       <q-item clickable v-ripple>
         <q-item-section avatar>
           <q-icon name="fas fa-hashtag" />
@@ -20,27 +20,29 @@
           </div>
         </q-item-section>
       </q-item>
-
-  </q-list>
+    </q-list>
   </div>
 </template>
 
 <script>
-import { Notify } from 'quasar'
+import { Notify } from "quasar";
+
 export default {
   name: "channel-info",
   props: {
     channel: {
-      type: Object, 
+      type: Object,
       required: true
     }
   },
   methods: {
     copyToClipboard(id) {
-      Notify.create({
-        message: 'Copied to clipboard'
+      this.$copyText(id).then(res => {
+        Notify.create({
+          message: "Channel Id copied to clipboard"
+        });
       });
     }
   }
-}
+};
 </script>

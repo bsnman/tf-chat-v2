@@ -2,12 +2,16 @@
   <q-page class="register flex flex-center">
     <q-card>
       <q-card-section>
-        <q-img class="third-logo" src="../assets/logo.png" width="150" height="150" />
+        <q-img
+          class="third-logo"
+          src="../assets/logo.png"
+          width="150"
+          height="150"
+        />
         <p class="text-h6">
           Register
         </p>
         <q-form ref="register-form" class="register-form" @submit="onRegister">
-
           <q-input
             v-model="registerForm.firstName"
             label="First Name"
@@ -22,7 +26,8 @@
             label="Last Name"
             lazy-rules
             :rules="[
-              val => (val && val.trim().length > 0) || 'Please enter your lastname'
+              val =>
+                (val && val.trim().length > 0) || 'Please enter your lastname'
             ]"
           />
 
@@ -53,16 +58,22 @@
             lazy-rules
             :rules="[
               val => (val && val.length > 0) || 'Please confirm your password',
-              val => (val == registerForm.password) || 'Password not the same'
+              val => val == registerForm.password || 'Password not the same'
             ]"
           />
           <div>
             <p>
-              <router-link to="/register"> I already have an account </router-link>
+              <router-link to="/register">
+                I already have an account
+              </router-link>
             </p>
           </div>
           <div style="display: flex; justify-content: flex-end">
-            <q-btn @click="registerAsGuest" label="Guest" :disable="isRegistering" />
+            <q-btn
+              @click="registerAsGuest"
+              label="Guest"
+              :disable="isRegistering"
+            />
             <q-btn
               label="register"
               type="submit"
@@ -103,10 +114,10 @@ export default {
   methods: {
     ...mapActions("auth", ["register", "authenticateGuest"]),
     onRegister() {
-      let registerForm = this.registerForm
+      const { registerForm } = this;
 
-      registerForm.firstName = registerForm.firstName.trim()
-      registerForm.lastName = registerForm.lastName.trim()
+      registerForm.firstName = registerForm.firstName.trim();
+      registerForm.lastName = registerForm.lastName.trim();
 
       this.isRegistering = true;
 

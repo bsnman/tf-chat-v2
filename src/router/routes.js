@@ -26,6 +26,14 @@ const routes = [
         }
       },
       {
+        path: "/channel/create",
+        name: "Channel Settings",
+        component: () => import("pages/ChannelCreate.vue"),
+        meta: {
+          auth: 1
+        }
+      },
+      {
         path: "/user/profile",
         name: "User Profile",
         component: () => import("pages/UserProfile.vue"),
