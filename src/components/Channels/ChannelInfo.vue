@@ -37,9 +37,13 @@ export default {
   },
   methods: {
     copyToClipboard(id) {
-      Notify.create({
-        message: 'Copied to clipboard'
-      });
+
+      this.$copyText(id)
+        .then(res => {
+          Notify.create({
+            message: 'Channel Id copied to clipboard'
+          });
+        })
     }
   }
 }

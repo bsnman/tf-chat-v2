@@ -108,7 +108,9 @@ export default {
     toChannelSettings(channel) {
       this.$router.push({ path: `/channel/${channel.id}/settings` });
     },
-    createChannelClick() {},
+    createChannelClick() {
+      this.$router.push({ path: `/channel/create` });
+    },
     joinChannelClick() {
       this.showModalJoinChannel = !this.showModalJoinChannel;
     }

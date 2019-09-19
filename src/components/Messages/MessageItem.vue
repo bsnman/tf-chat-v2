@@ -1,5 +1,8 @@
 <template>
-  <div class="message-item" :class="[message.isPlaceholder ? 'sending' : '']">
+  <div class="message-item" :class="{
+      sending: message.isPlaceholder,
+      owner: isMessageOwner
+    }">
     <q-separator />
     <div class="message-container flex no-wrap">
       <div class="message-details">
@@ -12,7 +15,7 @@
           </div>
         </div>
         &nbsp;
-        <Time
+        <TimeDisplay
           style="font-size: 0.8em; color: #aaa"
           :date="message.createdAt"
           :options="{
@@ -50,6 +53,9 @@ export default {
     ...mapGetters("currentUser", ["getCurrentUser"]),
     currentUser() {
       return this.getCurrentUser;
+    },
+    isMessageOwner() {
+      return this.currentUser.id === this.message.user.id
     }
   },
   methods: {
@@ -90,11 +96,18 @@ export default {
   display: inline-block
   padding: 10px 15px
   border-radius: 8px
-  background: $primary
+  background: #efefef;
 
 .message-details
   font-size: 0.8em
 
 .message-content
-  color: white
+  color: black
+
+.owner
+  .message-content
+    color: white
+
+  .message-bubble
+    background: $primary
 </style>
