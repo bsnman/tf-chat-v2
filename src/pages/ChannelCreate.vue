@@ -29,7 +29,8 @@
         </q-item-label>
 
         <div class="channel-create-action flex justify-end">
-          <q-btn label="Create" type="submit" color="primary" />
+          <q-btn @click="cancelClick" label="Cancel"/>
+          <q-btn label="Create" type="submit" color="primary" style="margin-left: 8px;"/>
         </div>
       </q-form>
     </div>
@@ -58,6 +59,9 @@ export default {
           this.createChannel(payload);
         }
       });
+    },
+    cancelClick() {
+      this.$router.go(-1)
     }
   }
 };
