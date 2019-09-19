@@ -169,16 +169,16 @@ export default {
 
           const currentUser = context.rootGetters["currentUser/getCurrentUser"];
 
-          if (
-            mutatedMessage.user.id !== currentUser.id &&
-            (document.visibilityState === "hidden" ||
-              !context.getters.isViewingChannel({ channelId, currentRoute }))
-          ) {
-            ringtone.play();
-          }
-
           if (mutation === "CREATED") {
             context.commit("addNewMessage", mutatedMessage);
+
+            if (
+              mutatedMessage.user.id !== currentUser.id &&
+              (document.visibilityState === "hidden" ||
+                !context.getters.isViewingChannel({ channelId, currentRoute }))
+            ) {
+              ringtone.play();
+            }
           } else if (mutation === "DELETED") {
             context.commit("removeMessage", previousValues);
           }
