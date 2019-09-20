@@ -42,7 +42,6 @@
             </q-item-label>
             <div class="channel-item-actions">
               <q-btn
-                v-if="channel.createdBy.id === currentUser.id"
                 @click="onSettingsClick(channel)"
                 icon="settings"
                 round

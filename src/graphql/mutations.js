@@ -108,3 +108,19 @@ export const joinChannel = gql`
     }
   }
 `;
+
+export const leaveChannel = gql`
+  mutation leaveChannel($id: ID!) {
+    leaveChannel(id: $id) {
+      id
+    }
+  }
+`;
+
+export const deleteChannel = gql`
+  mutation deleteChannel($id: ID!) {
+    deleteChannel(id: $id) {
+      id
+    }
+  }
+`;

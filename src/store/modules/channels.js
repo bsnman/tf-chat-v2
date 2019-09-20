@@ -53,6 +53,15 @@ export default {
         state.myJoinedChannels.nodes.unshift(v);
       }
     },
+    removeMyJoinedChannel(state, v) {
+      const index = state.myJoinedChannels.nodes.findIndex(
+        channel => channel.id === v.id
+      );
+
+      if (index >= 0) {
+        state.myJoinedChannels.nodes.splice(index, 1);
+      }
+    },
     updateChannel(state, v) {
       const index = _.findIndex(
         state.myJoinedChannels.nodes,
@@ -227,6 +236,38 @@ export default {
         context.commit("addMyJoinedChannel", result.data.joinChannel);
 
         return result.data.joinChannel;
+      } catch (err) {
+        return err;
+      }
+    },
+    async leaveChannel(context, { channelId }) {
+      try {
+        const result = await apolloClient.mutate({
+          mutation: mutations.leaveChannel,
+          variables: {
+            id: channelId
+          }
+        });
+
+        context.commit("removeMyJoinedChannel", result.data.leaveChannel);
+
+        return result.data.leaveChannel;
+      } catch (err) {
+        return err;
+      }
+    },
+    async deleteChannel(context, { channelId }) {
+      try {
+        const result = await apolloClient.mutate({
+          mutation: mutations.deleteChannel,
+          variables: {
+            id: channelId
+          }
+        });
+
+        context.commit("removeMyJoinedChannel", result.data.deleteChannel);
+
+        return result.data.deleteChannel;
       } catch (err) {
         return err;
       }

@@ -52,16 +52,31 @@ export default {
     createChannelClick() {
       this.$refs.formCreateChannel.validate().then(success => {
         if (success) {
-          const payload = {
-            title: this.roomTitle
-          };
-
-          this.createChannel(payload);
+          this.onCreateChannel()
         }
       });
     },
+    async onCreateChannel() {
+      try {
+        const payload = {
+          title: this.roomTitle
+        };
+
+        let channel = await this.createChannel(payload);
+
+        this.toChannel(channel)
+
+      } catch(err) {
+        console.log(err)
+
+        //TODO: Handle error
+      }
+    },
     cancelClick() {
       this.$router.go(-1)
+    },
+    toChannel(channel) {
+      this.$router.push({ path: `/chat/${channel.id}` })
     }
   }
 };
